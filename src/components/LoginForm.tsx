@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { authenticateUser } from '../api/AuthAPI';
 
+
 const LoginForm: React.FC = () => {
-  const [username, setUserName] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -11,36 +12,47 @@ const LoginForm: React.FC = () => {
     setError('');
 
     try {
-      const response = await authenticateUser({ username, password });
-      console.log(response)
+      const response = await authenticateUser({ userName, password });
+      return response
     } catch (err) {
       setError('Invalid credentials. Please try again.');
     }
   };
 
+
+    
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username:</label>
-        <input
-          type="username"
-          value={username}
-          onChange={(e) => setUserName(e.target.value)}
-          required
-        />
+    <>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Username:</label>
+          <input
+            type="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <div style={{ color: "red" }}>{error}</div>}
+        <button type="submit">Login</button>
+      </form>
+
+      <div style={{ marginTop: '20px' }}>
+        <p>Don't have an account? <a href="/register">Register here</a></p>
       </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      <button type="submit">Login</button>
-    </form>
+
+
+    </>
   );
 };
 
