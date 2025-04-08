@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProductSwiper from '../components/ProductSwiper';
 import { Product } from '../types/product';
-import { fetchProducts } from '../services/productApi';
+import { fetchProducts } from '../api/ProductAPI';
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
