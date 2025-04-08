@@ -19,9 +19,6 @@ const LoginForm: React.FC = () => {
     }
   };
 
-
-    
-
   return (
     <>
       <form onSubmit={handleSubmit}>

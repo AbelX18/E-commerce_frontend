@@ -10,7 +10,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold hover:text-red-800 transition-all duration-500 ease hover:scale-105 relative group">
             <span className="relative z-10">Pajarkadia</span>
-            <span className="absolute -inset-1 bg-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10"></span>
+            <span className="absolute -inset-1 bg-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -z-10"></span>
           </Link>
 
           <div className="hidden md:flex space-x-8">
