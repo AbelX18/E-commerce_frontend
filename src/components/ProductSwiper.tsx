@@ -1,14 +1,9 @@
 import { useRef, useState } from 'react';
 import ProductCard from './ProductCard';
+import { useCart } from '../context/CartContext';
+import { Product } from '../types/product';
 
-interface Product {
-    id: number;
-    title: string;
-    price: number;
-    image: string;
-    category: string;
-    rating?: number;
-}
+//ERMANO ESTA PÁGINA ES DE SUPERPRUEBA PRRO NO SÉ BIEN COMO FUNCIONA ESTA LIB TODAVÍA PERO AKIANDAMIO
 
 interface ProductSwiperProps {
     title: string;
@@ -20,6 +15,7 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
     const [isScrolling, setIsScrolling] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
+    const { addToCart } = useCart();
 
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsScrolling(true);
@@ -59,7 +55,23 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
             >
                 {products.map((product) => (
                 <div key={product.id} className="flex-none w-64">
-                    <ProductCard {...product} />
+                    <div className="bg-white rounded-lg shadow overflow-hidden">
+                        <img
+                            src={product.image}
+                            alt={product.title}
+                            className="w-full h-48 object-cover"
+                        />
+                        <div className="p-4">
+                            <h3 className="text-lg font-medium">{product.title}</h3>
+                            <p className="text-gray-600">${product.price.toFixed(2)}</p>
+                            <button
+                                onClick={() => addToCart(product)}
+                                className="mt-2 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
+                            >
+                                Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 ))}
             </div>
