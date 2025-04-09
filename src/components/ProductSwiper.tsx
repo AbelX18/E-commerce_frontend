@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import ProductCard from './ProductCard';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types/product';
+import { toast } from 'react-toastify';
 
 //ERMANO ESTA PÁGINA ES DE SUPERPRUEBA PRRO NO SÉ BIEN COMO FUNCIONA ESTA LIB TODAVÍA PERO AKIANDAMIO
 
@@ -17,6 +17,20 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
     const [scrollLeft, setScrollLeft] = useState(0);
     const { addToCart } = useCart();
 
+    const handleAddToCart = (product: Product) => {
+        addToCart(product);
+        toast.success(`${product.title} added to cart!`, {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    };
+
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsScrolling(true);
         setStartX(e.pageX - (containerRef.current?.offsetLeft || 0));
@@ -29,7 +43,7 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
         const x = e.pageX - (containerRef.current?.offsetLeft || 0);
         const walk = (x - startX) * 2;
         if (containerRef.current) {
-        containerRef.current.scrollLeft = scrollLeft - walk;
+            containerRef.current.scrollLeft = scrollLeft - walk;
         }
     };
 
@@ -65,7 +79,7 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
                             <h3 className="text-lg font-medium">{product.title}</h3>
                             <p className="text-gray-600">${product.price.toFixed(2)}</p>
                             <button
-                                onClick={() => addToCart(product)}
+                                onClick={() => handleAddToCart(product)}
                                 className="mt-2 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
                             >
                                 Agregar al Carrito
