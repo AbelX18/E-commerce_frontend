@@ -1,15 +1,14 @@
 import {useForm} from 'react-hook-form'
-import { registerStaff } from '../api/UserAPI';
-import { StaffRegisterForm } from '../schema';
+import { registerStaff } from '../../api/UserAPI';
+import { StaffRegisterForm } from '../../schema';
 
-export default function TestApi() {
+export default function StaffForm() {
 
     const initalValues : StaffRegisterForm= {
         userName:'',
         name:'',
         email:'',
-        password:'',
-        role:'STAFF'
+        password:''
     }
 
     const { register, handleSubmit, reset } = useForm<StaffRegisterForm>({defaultValues: initalValues})

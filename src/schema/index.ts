@@ -13,7 +13,7 @@ const authSchema = z.object({
 
 type Auth = z.infer<typeof authSchema>
 export type UserLoginForm = Pick<Auth,'userName'| 'password' >
-export type BuyerRegisterForm = Pick<Auth,'userName'| 'name' | 'email' | 'password' | 'password_confirmation' | 'role'>
-export type StaffRegisterForm = Pick<Auth,'userName'| 'name' | 'email' | 'password' | 'role'>
+export type BuyerRegisterForm = Pick<Auth,'userName'| 'name' | 'email' | 'password' | 'password_confirmation'>
+export type StaffRegisterForm = Pick<Auth,'userName'| 'name' | 'email' | 'password'>
 export type UserUpdateFrom = Pick<Auth,'userName'|'name'| 'email'>
 export type UpdateCurrentUserPasswordForm = Pick<Auth,'current_password' | 'password' | 'password_confirmation'>

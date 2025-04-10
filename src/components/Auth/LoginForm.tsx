@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authenticateUser } from '../api/AuthAPI';
+import { authenticateUser } from '../../api/AuthAPI';
 
 
 const LoginForm: React.FC = () => {
