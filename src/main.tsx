@@ -12,6 +12,7 @@ import { AuthProvider } from './context/AuthContext'
 import { CartProvider } from './context/CartContext'
 import Login from './pages/Login'
 import Ticket from './pages/Ticket'
+import About from './pages/About'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path="/register" element={<Signup />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/ticket" element={<Ticket />} />
+                <Route path="/about" element={<About />} />
               </Routes>
             </main>
             <Footer />
