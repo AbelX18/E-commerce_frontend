@@ -2,25 +2,33 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './index.css'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Login from './pages/Login'
 import Products from './pages/Products'
+import StaffLayout from './layouts/StaffLayout'
+import Staff from './pages/Staff'
+import EccomerceLayout from './layouts/EccomerceLayout'
+import ControlProducts from './pages/ControlProducts'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <QueryClientProvider client={queryClient}>
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Products />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<Products />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+
+        <Route element={<EccomerceLayout/>}>
+          <Route path="/" element={<Products />} />
+          
+        </Route>
+
+        <Route element={<StaffLayout/>} >
+          <Route path="/staff" element={<Staff />} />
+          <Route path="/staff/products" element={<ControlProducts/>} />
+        </Route>
+
+      </Routes>
     </Router>
-  </StrictMode>,
+    </QueryClientProvider>
+  </StrictMode>
 )
