@@ -3,9 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import EditProductModal from "./EditProductModal";
 import { useState } from "react";
 import { Product } from "../../schema/productSchema";
+import DetailsProductModal from "./DetailsProductModal";
 
 export default function TableProducts() {
     const [product, setProduct] = useState<Product | null>(null)
+    const [modal, setModal] = useState<{
+      type: "edit" | "details";
+      product: Product;
+    } | null>(null)
 
     const { isPending, data, error, status} = useQuery({
       queryKey:['products'],
@@ -42,10 +47,13 @@ export default function TableProducts() {
                 <td className="px-4 py-3 text-center space-x-2">
                   <button 
                     className="text-indigo-600 hover:underline text-sm"
-                    onClick={()=> setProduct(prod)}
+                    onClick={() => setModal({ type: "edit", product: prod })}
                   >Editar</button>
 
-                  <button type="button">Ver info</button>
+                  <button 
+                    type="button"
+                    onClick={() => setModal({ type: "details", product: prod })}
+                  >Ver info</button>
                   <button type="button">Eliminar</button>
                 </td>
               </tr>
@@ -59,13 +67,21 @@ export default function TableProducts() {
             )}
           </tbody>
         </table>
-        {product && (
-          <EditProductModal 
-            product={product}
-            productId={product.id}
-            onClose={() => setProduct(null)}
-          />
-        )}
+        {modal?.type === "edit" && (
+        <EditProductModal
+          product={modal.product}
+          productId={modal.product.id}
+          onClose={() => setModal(null)}
+        />
+      )}
+
+      {modal?.type === "details" && (
+        <DetailsProductModal
+          product={modal.product}
+          productId={modal.product.id}
+          onClose={() => setModal(null)}
+        />
+      )}
       </div>
 
 

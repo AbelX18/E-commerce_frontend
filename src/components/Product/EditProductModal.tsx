@@ -95,6 +95,7 @@ export default function EditProductModal({product, productId, onClose}: EditProd
                                                 product={product}
                                                 register={register}
                                                 setValue={setValue}
+                                                readOnly={false}
                                             />
                                             <input type="submit" 
                                                 className=" bg-red-600 hover:bg-red-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors"

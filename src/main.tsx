@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
     <Router>
       <Routes>
-
+        
         <Route element={<EccomerceLayout/>}>
           <Route path="/" element={<Products />} />
           

@@ -7,6 +7,7 @@ interface Props {
   image?: string
   register: UseFormRegister<ProductFormData>
   setValue: UseFormSetValue<ProductFormData>
+  readOnly?: boolean
 }
 
 declare global {
@@ -15,7 +16,7 @@ declare global {
   }
 }
 
-export default function ImageUpload({ image, register, setValue }: Props) {
+export default function ImageUpload({ image, register, setValue,readOnly }: Props) {
   const [imageUrl, setImageUrl] = useState<string>('')
   const widgetRef = useRef<any>(null)
 
@@ -85,6 +86,7 @@ export default function ImageUpload({ image, register, setValue }: Props) {
 
       <input 
         type="hidden"
+        disabled={readOnly}
         {...register('image', { required: 'La imagen es obligatoria' })}
       />
     </div>
