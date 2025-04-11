@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import { getAllCategories } from "../../api/CategoryAPI"
-import { Product } from "../../schema/productSchema"
 import { Category } from "../../schema/categorySchema"
 import { UseFormRegister, UseFormSetValue } from "react-hook-form"
 import { ProductFormData } from "../../schema/productSchema"
 import ImageUpload from "../Image/ImageUpload"
 
 type ProductFormProps = {
-  product: Product | null
+  product: ProductFormData | null
   register: UseFormRegister<ProductFormData>
   setValue: UseFormSetValue<ProductFormData>
 }

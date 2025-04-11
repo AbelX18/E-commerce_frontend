@@ -33,7 +33,6 @@ export default function AddProductModal() {
     })
 
     const handleCreateProduct = (formData: ProductFormData) => {
-        console.log(formData)    
         mutate(formData)
     }
 
