@@ -1,52 +1,33 @@
-import { Fragment} from 'react'
-import { updateProduct } from '../../api/ProductAPI'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Product, ProductFormData } from '../../schema/productSchema'
-import ProductForm from './ProductForm'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
-import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Product, ProductFormData } from "../../schema/productSchema"
+import { deleteProduct } from "../../api/ProductAPI"
+import { toast } from "react-toastify"
+import { Transition, Dialog, TransitionChild, DialogPanel, DialogTitle } from "@headlessui/react"
+import { Fragment } from "react/jsx-runtime"
 
-type EditProductModalProps = {
-    product: ProductFormData
-    productId: Product['id']
-    onClose: () => void
+
+type DeleteProductModalProps ={
+  product: ProductFormData
+  productId: Product['id']
+  onClose: () => void
 }
 
-export default function EditProductModal({product, productId, onClose}: EditProductModalProps) {
-    let show = productId ? true : false
+export default function DeleteProductModal({product, productId, onClose}: DeleteProductModalProps) {
+  let show= productId ? true : false
 
-    const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-    const {register, handleSubmit, setValue} = useForm<ProductFormData>({defaultValues:{
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
-        description: product.description,
-        image: product.image,
-        categoryId: product.categoryId
-    }})
-    
-    const {mutate} = useMutation({
-        mutationFn: updateProduct,
-        onError: (error) => {
-            toast.error(error.message)
-        },
-        onSuccess() {
-            queryClient.invalidateQueries({queryKey: ['products']})
-            toast.success("Producto Actualizado Correctamente")
-            onClose()
-        },
-    })
-
-
-    const handleUpdateProduct = (formData: ProductFormData) => {
-        const data = {
-            productId,
-            formData
-        }
-        mutate(data)
+  const {mutate} = useMutation({
+    mutationFn: deleteProduct,
+    onError(error) {
+      toast.error(error.message)
+    },
+    onSuccess(){
+      queryClient.invalidateQueries({queryKey:['products']})
+      toast.success('Producto Elminado Correctamente')
+      onClose()
     }
+  })
 
   return (
     <>
@@ -76,31 +57,32 @@ export default function EditProductModal({product, productId, onClose}: EditProd
                                     leaveFrom="opacity-100 scale-100"
                                     leaveTo="opacity-0 scale-95"
                                 >
-                                    <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
+                                    <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all p-16">
                                         <DialogTitle
                                             as="h3"
                                             className="font-black text-4xl  my-5"
                                         >
                                             Producto
                                         </DialogTitle>
-    
-                                        <p className="text-xl font-bold">Modifica el formulario del producto:{' '}
-                                            <span className="text-red-600">{product.name}</span>
+                                        
+                                        <p className="text-xl font-bold">Estas seguro de eliminar el producto:{' '}
+                                            <span className="text-red-600">{product.name}</span>?
                                         </p>
+                                        <div className="flex justify-center my-6">
+                                          <img
+                                            src={product.image}
+                                            alt="Imagen actual"
+                                            className="w-64 h-64 object-contain border border-gray-300"
+                                          />
+                                        </div>
                                         <form 
                                             className='mt-10 space-y-3'
                                             noValidate
-                                            onSubmit= {handleSubmit(handleUpdateProduct)}
+                                            onSubmit= {() => mutate({ productId })}
                                         >
-                                            <ProductForm 
-                                                product={product}
-                                                register={register}
-                                                setValue={setValue}
-                                                readOnly={false}
-                                            />
                                             <input type="submit" 
                                                 className=" bg-red-600 hover:bg-red-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors"
-                                                value='Modifica el Producto'
+                                                value='Eliminar Producto'
                                             />
                                         </form>
                                     </DialogPanel>

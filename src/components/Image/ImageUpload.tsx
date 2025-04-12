@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef} from 'react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { TbPhotoPlus } from 'react-icons/tb'
 import { ProductFormData } from '../../schema/productSchema'
@@ -17,7 +17,6 @@ declare global {
 }
 
 export default function ImageUpload({ image, register, setValue,readOnly }: Props) {
-  const [imageUrl, setImageUrl] = useState<string>('')
   const widgetRef = useRef<any>(null)
 
   useEffect(() => {
@@ -31,7 +30,6 @@ export default function ImageUpload({ image, register, setValue,readOnly }: Prop
         (error: any, result: any) => {
           if (!error && result.event === 'success') {
             const url = result.info.secure_url
-            setImageUrl(url)
             setValue('image', url) 
           }
         }
@@ -55,25 +53,22 @@ export default function ImageUpload({ image, register, setValue,readOnly }: Prop
 
   return (
     <div className="space-y-4 mt-5">
-      <label className="text-slate-800 font-semibold text-lg block">Imagen del Producto</label>
+      { !readOnly && (<>
+          <label className="text-slate-800 font-semibold text-lg block">Imagen del Producto</label>
 
-      <div
-        onClick={openWidget}
-        className="relative cursor-pointer hover:opacity-70 transition p-10 border border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600 bg-slate-100"
-      >
-        <TbPhotoPlus size={50} />
-        <p className="text-lg font-semibold">Agregar Imagen</p>
+          <div
+            onClick={openWidget}
+            className="relative cursor-pointer hover:opacity-70 transition p-10 border border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600 bg-slate-100"
+            >
+            <TbPhotoPlus size={50} />
+            <p className="text-lg font-semibold">Agregar Imagen</p>
 
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt="Vista previa"
-            className="absolute inset-0 w-full h-full object-contain"
-          />
-        )}
-      </div>
+          </div>)
+        </>
+      )}
 
-      {image && !imageUrl && (
+
+      {image && (
         <div className="space-y-2">
           <p className="font-semibold">Imagen actual:</p>
           <img

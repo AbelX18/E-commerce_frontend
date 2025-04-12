@@ -24,9 +24,9 @@ export default function AddProductModal() {
         onError:(error) =>{
             toast.error(error.message)
         },
-        onSuccess:(data) => {
+        onSuccess:() => {
             queryClient.invalidateQueries({queryKey:['products']})
-            toast.success(data)
+            toast.success('Producto cargado con exito!!')
             reset()
             navigate(location.pathname,{replace: true})
         }

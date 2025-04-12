@@ -4,11 +4,11 @@ import EditProductModal from "./EditProductModal";
 import { useState } from "react";
 import { Product } from "../../schema/productSchema";
 import DetailsProductModal from "./DetailsProductModal";
+import DeleteProductModal from "./DeleteProductModal";
 
 export default function TableProducts() {
-    const [product, setProduct] = useState<Product | null>(null)
     const [modal, setModal] = useState<{
-      type: "edit" | "details";
+      type: "edit" | "details" | 'delete';
       product: Product;
     } | null>(null)
 
@@ -54,7 +54,9 @@ export default function TableProducts() {
                     type="button"
                     onClick={() => setModal({ type: "details", product: prod })}
                   >Ver info</button>
-                  <button type="button">Eliminar</button>
+                  <button 
+                    type="button"
+                    onClick={()=> setModal({ type: "delete", product: prod})}>Eliminar</button>
                 </td>
               </tr>
             ))}
@@ -82,6 +84,13 @@ export default function TableProducts() {
           onClose={() => setModal(null)}
         />
       )}
+
+      {modal?.type === "delete" && (
+        <DeleteProductModal
+          product={modal.product}
+          productId={modal.product.id}
+          onClose={() => setModal(null)}
+        />)}
       </div>
 
 
