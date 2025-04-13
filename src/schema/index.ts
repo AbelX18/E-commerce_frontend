@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 /** Auth & Users */
 const authSchema = z.object({
+    id: z.number(),
     userName: z.string(),
     name: z.string(),
     email: z.string().email(),
@@ -13,7 +14,8 @@ const authSchema = z.object({
 
 type Auth = z.infer<typeof authSchema>
 export type UserLoginForm = Pick<Auth,'userName'| 'password' >
-export type BuyerRegisterForm = Pick<Auth,'userName'| 'name' | 'email' | 'password' | 'password_confirmation'>
-export type StaffRegisterForm = Pick<Auth,'userName'| 'name' | 'email' | 'password'>
+export type Staff = Pick<Auth,'id' | 'userName' | 'email' | 'name' |'role'>
+export type BuyerFormData = Pick<Auth,'userName'| 'name' | 'email' | 'password' | 'password_confirmation'>
+export type StaffFormData = Pick<Auth,'userName'| 'name' | 'email' | 'password'>
 export type UserUpdateFrom = Pick<Auth,'userName'|'name'| 'email'>
 export type UpdateCurrentUserPasswordForm = Pick<Auth,'current_password' | 'password' | 'password_confirmation'>

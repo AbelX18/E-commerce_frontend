@@ -8,6 +8,7 @@ import Staff from './pages/Staff'
 import EccomerceLayout from './layouts/EccomerceLayout'
 import ControlProducts from './pages/ControlProducts'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import ControlStaff from './pages/ControlStaff'
 
 const queryClient = new QueryClient()
 
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
         <Route element={<StaffLayout/>} >
           <Route path="/staff" element={<Staff />} />
           <Route path="/staff/products" element={<ControlProducts/>} />
+          <Route path='/staff/user' element={<ControlStaff/>} />
         </Route>
 
       </Routes>

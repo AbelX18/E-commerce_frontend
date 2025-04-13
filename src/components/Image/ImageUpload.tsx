@@ -63,7 +63,7 @@ export default function ImageUpload({ image, register, setValue,readOnly }: Prop
             <TbPhotoPlus size={50} />
             <p className="text-lg font-semibold">Agregar Imagen</p>
 
-          </div>)
+          </div>
         </>
       )}
 

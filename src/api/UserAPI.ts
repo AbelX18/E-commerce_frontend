@@ -1,10 +1,15 @@
 import { isAxiosError } from "axios";
-import { BuyerRegisterForm, StaffRegisterForm, UpdateCurrentUserPasswordForm, UserUpdateFrom } from "../schema";
+import { BuyerFormData, Staff, StaffFormData, UpdateCurrentUserPasswordForm, UserUpdateFrom } from "../schema";
 import api from "../lib/axios";
 
-export async function registerStaff(formData : StaffRegisterForm) {
+type UserAPI={
+    formData: UserUpdateFrom
+    staffId:  Staff['id']
+}
+
+export async function registerStaff(formData : StaffFormData) {
     try {
-        const url = '/user/create'
+        const url = '/user/register/staff'
         const {data} = await api.post<string>(url,formData)
         return data
     } catch (error) {
@@ -14,9 +19,9 @@ export async function registerStaff(formData : StaffRegisterForm) {
     }
 }
 
-export async function registerBuyer(formData : BuyerRegisterForm) {
+export async function registerBuyer(formData : BuyerFormData) {
     try {
-        const url = '/user/create'
+        const url = '/user/register/buyer'
         const {data} = await api.post<string>(url,formData)
         return data
     } catch (error) {
@@ -29,12 +34,13 @@ export async function registerBuyer(formData : BuyerRegisterForm) {
 export async function findAllUsers(){
     try {
         const url= '/user'
-        const {data} = await api.get<string>(url)
+        const {data} = await api.get<Staff[]>(url)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
         throw new Error(error.message)
         }
+        return []
     }
 }
 
@@ -62,10 +68,10 @@ export async function updateBuyer(id: number, formData: UserUpdateFrom){
     }
 }
 
-export async function updateStaff(id: number ,formData: UserUpdateFrom){  
+export async function updateStaff({staffId,formData}: UserAPI){  
     try {
-        const url= `/user/${id}`
-        const {data} = await api.patch<string>(url,formData)
+        const url= `/user/${staffId}`
+        const {data} = await api.patch<UserUpdateFrom>(url,formData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
@@ -79,6 +85,18 @@ export async function changePassword(id: number, formData: UpdateCurrentUserPass
         const url = `/user/${id}`
         const {data} = await api.patch<string>(url,formData)
         return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.message)
+        }
+    }
+}
+
+export async function deleteUser(id: number){
+    try {
+        const url = `/user/${id}`
+        const {data} = await api.delete<string>(url)
+        return data        
     } catch (error) {
         if(isAxiosError(error) && error.response){
             throw new Error(error.message)

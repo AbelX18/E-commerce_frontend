@@ -16,4 +16,3 @@ export const ProductSchema = z.object({
 
 export type Product = z.infer<typeof ProductSchema>
 export type ProductFormData = Pick<Product,'name' | 'price' | 'quantity' | 'categoryId' | 'image' | 'description'>
-// export type updateProduct = Pick<Product,'name' | 'price' | 'quantity' | 'categoryId' | 'description' |'image'> 
