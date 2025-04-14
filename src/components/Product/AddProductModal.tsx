@@ -24,16 +24,15 @@ export default function AddProductModal() {
         onError:(error) =>{
             toast.error(error.message)
         },
-        onSuccess:(data) => {
+        onSuccess:() => {
             queryClient.invalidateQueries({queryKey:['products']})
-            toast.success(data)
+            toast.success('Producto cargado con exito!!')
             reset()
             navigate(location.pathname,{replace: true})
         }
     })
 
     const handleCreateProduct = (formData: ProductFormData) => {
-        console.log(formData)    
         mutate(formData)
     }
 
@@ -84,6 +83,7 @@ export default function AddProductModal() {
                                             product={null}
                                             register={register}
                                             setValue={setValue}
+                                            readOnly={false}
                                         />
                                         <input type="submit" 
                                             className=" bg-red-600 hover:bg-red-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors"

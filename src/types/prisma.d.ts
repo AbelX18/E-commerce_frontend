@@ -27,3 +27,4 @@ export type Ticket = {
     items: TicketItem[];
     status: 'Pending' | 'Paid' | 'Shipped';
 };
+

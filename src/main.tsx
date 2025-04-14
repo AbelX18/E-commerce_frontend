@@ -10,6 +10,8 @@ import Staff from './pages/Staff'
 import EccomerceLayout from './layouts/EccomerceLayout'
 import ControlProducts from './pages/ControlProducts'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import ControlStaff from './pages/ControlStaff'
+import ControlCategories from './pages/ControlCategories'
 
 const queryClient = new QueryClient()
 import { AuthProvider } from './context/AuthContext'

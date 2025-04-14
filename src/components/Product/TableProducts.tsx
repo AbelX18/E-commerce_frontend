@@ -1,35 +1,30 @@
-import { useEffect, useState } from "react";
-import { Product } from "../../schema/productSchema";
 import { getAllProducts } from "../../api/ProductAPI";
-
+import { useQuery } from "@tanstack/react-query";
+import EditProductModal from "./EditProductModal";
+import { useState } from "react";
+import { Product } from "../../schema/productSchema";
+import DetailsProductModal from "./DetailsProductModal";
+import DeleteProductModal from "./DeleteProductModal";
 
 export default function TableProducts() {
-    const [products, setProducts] = useState<Product[]>([]);
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await getAllProducts()
-                console.log(response)
-                 if (response) {
-                    setProducts(response.map((item: Product) => ({
-                        id: item.id,
-                        name: item.name,
-                        categoryId: item.categoryId,
-                        category: { name: item.category.name },
-                        quantity: item.quantity,
-                        price: item.price,
-                        image: item.image || "",
-                        description: item.description || "",
-                    })));
-                 }
-            } catch (error) {
-                console.error("Error fetching products:", error);
-            }
-        };
-        fetchProducts();
-    }, []);
+    const [modal, setModal] = useState<{
+      type: "edit" | "details" | 'delete';
+      product: Product;
+    } | null>(null)
 
+    const { isPending, data, error, status} = useQuery({
+      queryKey:['products'],
+      queryFn: getAllProducts,
+    })
 
+    if (isPending) {
+      return <span>Loading...</span>
+    }
+
+    if (status === 'error') {
+      return <span>Error: {error.message}</span>
+    }
+  
     return (
         <div className="bg-white rounded-2xl shadow p-4 overflow-x-auto">
         <table className="min-w-full table-auto border-collapse">
@@ -43,20 +38,29 @@ export default function TableProducts() {
             </tr>
           </thead>
           <tbody>
-            {products.map((prod) => (
+            {data.map((prod) => (
               <tr key={prod.id} className="border-t text-sm text-gray-700 hover:bg-gray-50">
                 <td className="px-4 py-3">{prod.name}</td>
                 <td className="px-4 py-3">{prod.category.name}</td>
                 <td className="px-4 py-3">${prod.price.toFixed(2)}</td>
                 <td className="px-4 py-3 text-center">{prod.quantity}</td>
                 <td className="px-4 py-3 text-center space-x-2">
-                  <button className="text-indigo-600 hover:underline text-sm">Editar</button>
-                  <button type="button">Ver info</button>
-                  <button type="button">Eliminar</button>
+                  <button 
+                    className="text-indigo-600 hover:underline text-sm"
+                    onClick={() => setModal({ type: "edit", product: prod })}
+                  >Editar</button>
+
+                  <button 
+                    type="button"
+                    onClick={() => setModal({ type: "details", product: prod })}
+                  >Ver info</button>
+                  <button 
+                    type="button"
+                    onClick={()=> setModal({ type: "delete", product: prod})}>Eliminar</button>
                 </td>
               </tr>
             ))}
-            {products.length === 0 && (
+            {data.length === 0 && (
               <tr>
                 <td colSpan={5} className="text-center py-6 text-gray-500">
                   No hay productos cargados.
@@ -65,6 +69,30 @@ export default function TableProducts() {
             )}
           </tbody>
         </table>
+        {modal?.type === "edit" && (
+        <EditProductModal
+          product={modal.product}
+          productId={modal.product.id}
+          onClose={() => setModal(null)}
+        />
+      )}
+
+      {modal?.type === "details" && (
+        <DetailsProductModal
+          product={modal.product}
+          productId={modal.product.id}
+          onClose={() => setModal(null)}
+        />
+      )}
+
+      {modal?.type === "delete" && (
+        <DeleteProductModal
+          product={modal.product}
+          productId={modal.product.id}
+          onClose={() => setModal(null)}
+        />)}
       </div>
+
+
   )
 }
