@@ -5,3 +5,4 @@ const CategorySchema = z.object({
     name: z.string()})
 
 export type Category = z.infer<typeof CategorySchema>
+export type CategoryForm = Pick<Category,'name'>

@@ -60,7 +60,7 @@ export default function TableProducts() {
             {data.length === 0 && (
               <tr>
                 <td colSpan={5} className="text-center py-6 text-gray-500">
-                  No hay productos cargados.
+                  No hay miembros del Staff cargados.
                 </td>
               </tr>
             )}
