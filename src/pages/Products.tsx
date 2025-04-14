@@ -1,34 +1,25 @@
 import { useState, useEffect } from 'react';
 import ProductSwiper from '../components/ProductSwiper';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  category: string;
-  rating?: number;
-}
+import { Product } from '../types/product';
+import { fetchProducts } from '../api/ProductAPI';
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    {/* temporal */}
-    const fetchProducts = async () => {
+    const loadProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/products');
-        const data = await response.json();
+        const data = await fetchProducts();
         setProducts(data);
       } catch (error) {
-        console.error('Error consultando los datos de los productos:', error);
+        console.error('Error loading products:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    loadProducts();
   }, []);
 
   // Por categoría <temporalmente>

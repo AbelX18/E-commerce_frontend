@@ -15,18 +15,15 @@ const LoginForm: React.FC = () => {
       const response = await authenticateUser({ userName, password });
       return response
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      setError('Email o contraseña inválidos. Intenta de nuevo. :' + err); //despue hay que borrar el +err
     }
   };
-
-
-    
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <label>Usuario:</label>
           <input
             type="userName"
             value={userName}
@@ -35,7 +32,7 @@ const LoginForm: React.FC = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Contraseña:</label>
           <input
             type="password"
             value={password}
@@ -48,7 +45,7 @@ const LoginForm: React.FC = () => {
       </form>
 
       <div style={{ marginTop: '20px' }}>
-        <p>Don't have an account? <a href="/register">Register here</a></p>
+        <p>No tienes una cuenta? <a href="/register">Registrate aqui lactm</a></p> //DESPUE HAY QUE CAMBIARLO XD
       </div>
 
 

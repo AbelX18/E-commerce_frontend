@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import './index.css'
 import Products from './pages/Products'
 import StaffLayout from './layouts/StaffLayout'
@@ -12,27 +14,45 @@ import ControlStaff from './pages/ControlStaff'
 import ControlCategories from './pages/ControlCategories'
 
 const queryClient = new QueryClient()
+import { AuthProvider } from './context/AuthContext'
+import { CartProvider } from './context/CartContext'
+import Login from './pages/Login'
+import Ticket from './pages/Ticket'
+import About from './pages/About'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-    <Router>
-      <Routes>
-        
-        <Route element={<EccomerceLayout/>}>
-          <Route path="/" element={<Products />} />
-          
-        </Route>
-
-        <Route element={<StaffLayout/>} >
-          <Route path="/staff/main" element={<Staff />} />
-          <Route path="/staff/products" element={<ControlProducts/>} />
-          <Route path='/staff/user' element={<ControlStaff/>} />
-          <Route path='/staff/categories' element={<ControlCategories/>}/>
-        </Route>
-
-      </Routes>
-    </Router>
-    </QueryClientProvider>
-  </StrictMode>
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Products />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Signup />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/ticket" element={<Ticket />} />
+                <Route path="/about" element={<About />} />
+              </Routes>
+            </main>
+            <Footer />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </div>
+        </Router>
+      </CartProvider>
+    </AuthProvider>
+  </StrictMode>,
 )
