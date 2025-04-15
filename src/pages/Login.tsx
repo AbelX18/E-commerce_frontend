@@ -17,7 +17,7 @@ const Login = () => {
         await login(email, password);
         navigate('/');
         } catch (err) {
-        setError('Uusario o contraseña incorrecta' + err); //despues hay que borrar el +err
+        setError('Usuario o contraseña incorrecta' + err); //despues hay que borrar el +err
         }
     };
 
@@ -26,7 +26,7 @@ const Login = () => {
         <div className="max-w-md w-full space-y-8">
             <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                iNGRESA A TU CUENTA
+                Ingresa a tu cuenta
             </h2>
             </div>
             <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
