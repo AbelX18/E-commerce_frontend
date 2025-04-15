@@ -4,6 +4,7 @@ import { Product } from '../types/product';
 import { toast } from 'react-toastify';
 
 //ERMANO ESTA PÁGINA ES DE SUPERPRUEBA PRRO NO SÉ BIEN COMO FUNCIONA ESTA LIB TODAVÍA PERO AKIANDAMIO
+//Usted no se ponga nervioso que yo me encargo de las correcciones
 
 interface ProductSwiperProps {
     title: string;
@@ -19,7 +20,7 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
 
     const handleAddToCart = (product: Product) => {
         addToCart(product);
-        toast.success(`${product.title} added to cart!`, {
+        toast.success(`${product.name} added to cart!`, {
             position: "bottom-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -72,11 +73,11 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
                     <div className="bg-white rounded-lg shadow overflow-hidden">
                         <img
                             src={product.image}
-                            alt={product.title}
+                            alt={product.name}
                             className="w-full h-48 object-cover"
                         />
                         <div className="p-4">
-                            <h3 className="text-lg font-medium">{product.title}</h3>
+                            <h3 className="text-lg font-medium">{product.name}</h3>
                             <p className="text-gray-600">${product.price.toFixed(2)}</p>
                             <button
                                 onClick={() => handleAddToCart(product)}

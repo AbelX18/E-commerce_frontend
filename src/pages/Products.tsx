@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProductSwiper from '../components/ProductSwiper';
 import { Product } from '../types/product';
-import { fetchProducts } from '../api/ProductAPI';
+import { getAllProducts } from '../api/ProductAPI';
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,8 +10,8 @@ const Products = () => {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const data = await fetchProducts();
-        setProducts(data);
+        const data = await getAllProducts();
+        setProducts(data)
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
@@ -24,10 +24,10 @@ const Products = () => {
 
   // Por categoría <temporalmente>
   const productsByCategory = products.reduce((acc, product) => {
-    if (!acc[product.category]) {
-      acc[product.category] = [];
+    if (!acc[product.category.name]) {
+      acc[product.category.name] = [];
     }
-    acc[product.category].push(product);
+    acc[product.category.name].push(product);
     return acc;
   }, {} as Record<string, Product[]>);
 

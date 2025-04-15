@@ -1,9 +1,7 @@
 import { isAxiosError } from 'axios'
 import api from '../lib/axios'
 import { UserLoginForm } from '../schema'
-import { LoginCredentials, User } from '../types/user'
-
-const API_BASE_URL = 'http://localhost:3000/api'
+import { LoginCredentials, User } from '../types/user' 
 
 export async function authenticateUser(formData: UserLoginForm) {
     try {
@@ -32,7 +30,7 @@ export async function profileUser(){
 
 export const login = async (credentials: LoginCredentials): Promise<User> => {
     try {
-        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        const response = await fetch(`${process.env.VITE_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,7 +52,7 @@ export const login = async (credentials: LoginCredentials): Promise<User> => {
 
 export const logout = async (): Promise<void> => {
     try {
-        const response = await fetch(`${API_BASE_URL}/auth/logout`, {
+        const response = await fetch(`${process.env.VITE_API_URL}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

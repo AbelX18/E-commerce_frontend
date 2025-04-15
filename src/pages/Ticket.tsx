@@ -17,7 +17,7 @@ const Ticket = () => {
       // Fijate esto desde el backend
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/create-preference`, {
         items: items.map(item => ({
-          title: item.title,
+          title: item.name,
           unit_price: item.price,
           quantity: item.quantity,
         })),
@@ -59,11 +59,11 @@ const Ticket = () => {
             <div key={item.id} className="p-4 flex items-center">
               <img
                 src={item.image}
-                alt={item.title}
+                alt={item.name}
                 className="w-20 h-20 object-cover rounded"
               />
               <div className="ml-4 flex-grow">
-                <h3 className="text-lg font-medium">{item.title}</h3>
+                <h3 className="text-lg font-medium">{item.name}</h3>
                 <p className="text-gray-600">${item.price.toFixed(2)}</p>
               </div>
               <div className="flex items-center space-x-4">
