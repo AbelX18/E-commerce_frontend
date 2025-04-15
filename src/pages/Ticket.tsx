@@ -1,9 +1,37 @@
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import MercadoPagoButton from '../components/Payment/MercadoPagoButton';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Ticket = () => {
   const { items, removeFromCart, updateQuantity, total } = useCart();
   const navigate = useNavigate();
+  const [preferenceId, setPreferenceId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePayment = async () => {
+    try {
+      setIsLoading(true);
+      // Fijate esto desde el backend
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/create-preference`, {
+        items: items.map(item => ({
+          title: item.title,
+          unit_price: item.price,
+          quantity: item.quantity,
+        })),
+        total: total,
+      });
+
+      setPreferenceId(response.data.id);
+    } catch (error) {
+      console.error('Error al crear la preferencia:', error);
+      toast.error('Error al procesar el pago');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -69,15 +97,29 @@ const Ticket = () => {
             <span className="text-lg font-medium">Total:</span>
             <span className="text-xl font-bold">${total.toFixed(2)}</span>
           </div>
-          <button
-            onClick={() => {
-              // Here you would typically handle the checkout process
-              alert('Proceder al pago');
-            }}
-            className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
-          >
-            Proceder al Pago
-          </button>
+          {!preferenceId ? (
+            <button
+              onClick={handlePayment}
+              disabled={isLoading}
+              className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 disabled:opacity-50"
+            >
+              {isLoading ? 'Procesando...' : 'Proceder al Pago'}
+            </button>
+          ) : (
+            <div className="mt-4">
+              <MercadoPagoButton
+                preferenceId={preferenceId}
+                onSuccess={() => {
+                  toast.success('¡Pago realizado con éxito!');
+                  navigate('/products');
+                }}
+                onError={() => {
+                  toast.error('Error en el pago');
+                  setPreferenceId(null);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
