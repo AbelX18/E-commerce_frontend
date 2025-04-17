@@ -1,27 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { BuyerFormData } from '../schema';
+import { registerBuyer } from '../api/UserAPI';
+import { useMutation } from '@tanstack/react-query';
 
-const signupSchema = z.object({
-  name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
-  email: z.string().email('Email inválido'),
-  password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Las contraseñas no coinciden",
-  path: ["confirmPassword"],
-});
-
-type SignupFormData = z.infer<typeof signupSchema>;
-
-interface ApiErrorResponse {
-  message: string;
-  success: boolean;
-}
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -29,33 +13,27 @@ const Signup = () => {
   
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormData>({
-    resolver: zodResolver(signupSchema),
-  });
+  } = useForm<BuyerFormData>();
 
-  const onSubmit = async (data: SignupFormData) => {
-    try {
-      setIsLoading(true);
-      const response = await axios.post<ApiErrorResponse>(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
+  const password = watch('password')
 
-      if (response.data.success) {
-        toast.success('¡Registro exitoso! Por favor inicia sesión.');
-        navigate('/login');
-      }
-    } catch (error) {
-      const axiosError = error as AxiosError<ApiErrorResponse>;
-      const errorMessage = axiosError.response?.data?.message || 'Error al registrar usuario';
-      toast.error(errorMessage);
-    } finally {
-      setIsLoading(false);
+  const {mutate} = useMutation({
+    mutationFn: registerBuyer,
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    onSuccess:() => {
+      toast.success('¡Registro exitoso! Por favor inicia sesión.');
+      navigate('/login')
     }
-  };
+  })
+  const onSubmit = async (formData: BuyerFormData) => {
+    mutate(formData)
+    setIsLoading(false)
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -76,6 +54,21 @@ const Signup = () => {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm -space-y-px">
+          <div>
+              <label htmlFor="userName" className="sr-only">
+                Nombre de usuario
+              </label>
+              <input
+                {...register('userName')}
+                id="userName"
+                type="text"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Nombre de usuario"
+              />
+              {errors.userName && (
+                <p className="mt-1 text-sm text-red-600">{errors.userName.message}</p>
+              )}
+            </div>
             <div>
               <label htmlFor="name" className="sr-only">
                 Nombre
@@ -111,7 +104,13 @@ const Signup = () => {
                 Contraseña
               </label>
               <input
-                {...register('password')}
+                {...register("password", {
+                  required: "El Password es obligatorio",
+                  minLength: {
+                    value: 6,
+                    message: 'El Password debe ser mínimo de 6 caracteres'
+                  }
+                })}
                 id="password"
                 type="password"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -122,18 +121,21 @@ const Signup = () => {
               )}
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="sr-only">
+              <label htmlFor="password_confirmation" className="sr-only">
                 Confirmar contraseña
               </label>
               <input
-                {...register('confirmPassword')}
-                id="confirmPassword"
+                {...register("password_confirmation", {
+                  required: "Repetir Password es obligatorio",
+                  validate: value => value === password || 'Los Passwords no son iguales'
+                })}
+                id="password_confirmation"
                 type="password"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Confirmar contraseña"
               />
-              {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
+              {errors.password_confirmation && (
+                <p className="mt-1 text-sm text-red-600">{errors.password_confirmation.message}</p>
               )}
             </div>
           </div>
