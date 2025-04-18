@@ -19,6 +19,7 @@ import ControlProducts from './pages/ControlProducts'
 import Staff from './pages/Staff'
 import ControlCategories from './pages/ControlCategories'
 import ControlStaff from './pages/ControlStaff'
+import DemoSuccess from './pages/DemoSuccess'
 
 const queryClient = new QueryClient()
 
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         { path: '/register', element: <Signup /> },
         { path: '/ticket', element: <Ticket /> },
         { path: '/about', element: <About /> },
+        { path: '/success', element: <DemoSuccess/> },
       ],
     },
     {
