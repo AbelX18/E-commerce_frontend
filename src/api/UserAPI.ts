@@ -104,3 +104,16 @@ export async function deleteUser(id: number){
     }
 }
 
+export async function cantStaff() {
+    try {
+        const url = `/user/staff/cant`
+        const {data} = await api.get<number>(url)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.message)
+        }
+        return 0
+    }
+}
+

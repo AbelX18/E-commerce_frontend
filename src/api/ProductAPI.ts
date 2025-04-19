@@ -34,7 +34,7 @@ export async function getAllProducts() {
 
 export async function findProduct({productId}: Pick<ProductAPI,'productId'>){
     try {
-        const url = `/products/${productId}`
+        const url = `/products/by-id/${productId}`
         const {data} = await api.get<Product>(url)
         const response = ProductSchema.safeParse(data)
         if(response.success){
@@ -49,7 +49,7 @@ export async function findProduct({productId}: Pick<ProductAPI,'productId'>){
 
 export async function updateProduct({productId,formData}: Pick<ProductAPI,'productId'| 'formData' >){
     try {
-        const url = `/products/${productId}`
+        const url = `/products/by-id/${productId}`
         const {data} = await api.patch<Product>(url, formData)
         return data
     } catch (error) {
@@ -61,12 +61,25 @@ export async function updateProduct({productId,formData}: Pick<ProductAPI,'produ
 
 export async function deleteProduct({productId}: Pick<ProductAPI,'productId'>){
     try {
-        const url = `/products/${productId}`
+        const url = `/products/by-id/${productId}`
         const {data} = await api.delete<string>(url)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.message){
             throw new Error(error.message)
         }
+    }
+}
+
+export async function cantProduct(){
+    try {
+        const url = `/products/cant`
+        const {data} = await api.get<number>(url)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.message){
+            throw new Error(error.message)
+        }
+        return 0
     }
 }
