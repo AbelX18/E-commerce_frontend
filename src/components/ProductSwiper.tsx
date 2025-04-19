@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { Product } from '../types/product';
+import { Product } from '../schema/productSchema';
 import { toast } from 'react-toastify';
 
 //ERMANO ESTA PÁGINA ES DE SUPERPRUEBA PRRO NO SÉ BIEN COMO FUNCIONA ESTA LIB TODAVÍA PERO AKIANDAMIO

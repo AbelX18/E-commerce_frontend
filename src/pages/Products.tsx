@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import ProductSwiper from '../components/ProductSwiper';
-import { Product } from '../types/product';
+import { Product } from '../schema/productSchema';
 import { getAllProducts } from '../api/ProductAPI';
 
 const Products = () => {
@@ -41,7 +41,7 @@ const Products = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 px-4">Featured Products</h1>
+      <h1 className="text-3xl font-bold mb-8 px-4">Productos</h1>
       {Object.entries(productsByCategory).map(([category, categoryProducts]) => (
         <ProductSwiper
           key={category}

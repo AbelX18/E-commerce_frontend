@@ -11,8 +11,11 @@ export const ProductSchema = z.object({
         name: z.string()
     }),
     image: z.string(),
-    description: z.string()
+    description: z.string(),
+    discount: z.number().min(0).max(100).default(0),
+    stock: z.number().min(0).default(0),
+    createdAt: z.string().datetime().optional()
 })
 
 export type Product = z.infer<typeof ProductSchema>
-export type ProductFormData = Pick<Product,'name' | 'price' | 'quantity' | 'categoryId' | 'image' | 'description'>
+export type ProductFormData = Pick<Product,'name' | 'price' | 'quantity' | 'categoryId' | 'image' | 'description' | 'discount' | 'stock'>

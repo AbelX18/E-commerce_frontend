@@ -17,7 +17,7 @@ const Login = () => {
         await login(email, password);
         navigate('/');
         } catch (err) {
-        setError('Usuario o contraseña incorrecta' ); //despues hay que borrar el +err
+        setError('Usuario o contraseña incorrecta' + err ); //despues hay que borrar el +err
         }
     };
 

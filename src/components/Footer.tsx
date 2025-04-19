@@ -6,9 +6,9 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Masturcomerce</h3>
+            <h3 className="text-xl font-bold mb-4">Tienda virtual Arkadia</h3>
             <p className="text-gray-400">
-              La tienda mas confiable (ojala) para comprar productos de masturbacion. Productos de calida, precio barato, wen servisio.
+              Tienda especializada en Cómics, Mangas, Merchandising y mucho más!!. Amamos lo que hacemos ❤
             </p>
           </div>
 

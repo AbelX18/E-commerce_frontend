@@ -8,11 +8,14 @@ import {
 } from 'react-router-dom'
 
 // Páginas
+import Home from './pages/Home'
 import Products from './pages/Products'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Ticket from './pages/Ticket'
 import About from './pages/About'
+import Categories from './pages/Categories'
+import CategoryProducts from './pages/CategoryProducts'
 import EccomerceLayout from './layouts/EccomerceLayout'
 import StaffLayout from './layouts/StaffLayout'
 import ControlProducts from './pages/ControlProducts'
@@ -28,7 +31,10 @@ const router = createBrowserRouter(
     {
       element: <EccomerceLayout />,
       children: [
+        { path: '/', element: <Home /> },
         { path: '/products', element: <Products /> },
+        { path: '/categories', element: <Categories /> },
+        { path: '/categories/:id', element: <CategoryProducts /> },
         { path: '/login', element: <Login /> },
         { path: '/register', element: <Signup /> },
         { path: '/ticket', element: <Ticket /> },
@@ -46,7 +52,6 @@ const router = createBrowserRouter(
       ],
     },
   ],
-
 )
 
 createRoot(document.getElementById('root')!).render(

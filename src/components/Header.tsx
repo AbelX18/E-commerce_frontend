@@ -9,7 +9,7 @@ const Header = () => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold hover:text-red-800 transition-all duration-500 ease hover:scale-105 relative group">
-            <span className="relative z-10">Pajarkadia</span>
+            <span className="relative z-10">Arkadia Demo</span>
             <span className="absolute -inset-1 bg-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -z-10"></span>
           </Link>
 
@@ -47,7 +47,7 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex space-x-4">
-                <Link to="/login" className="text-gray-600 hover:text-gray-900">Login</Link>
+                <Link to="/login" className="text-gray-600 px-4 py-2 hover:text-gray-900">Login</Link>
                 <Link to="/register" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Registrarse</Link>
               </div>
             )}
