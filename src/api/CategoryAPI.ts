@@ -54,7 +54,8 @@ export async function cantCategory() {
             throw new Error(error.message)
         }
         return 0
-// Para testear
+    }
+}
 
 export async function getCategoryById(id: number): Promise<Category | null> {
     try {
