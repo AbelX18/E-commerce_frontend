@@ -13,7 +13,8 @@ export const ProductSchema = z.object({
     image: z.string(),
     description: z.string(),
     discount: z.number().min(0).max(100).default(0),
-    stock: z.number().min(0).default(0)
+    stock: z.number().min(0).default(0),
+    createdAt: z.string().datetime().optional()
 })
 
 export type Product = z.infer<typeof ProductSchema>
