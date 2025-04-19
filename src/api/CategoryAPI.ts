@@ -19,7 +19,7 @@ export async function createCategory(formData: CategoryForm) {
     }
 }
 
-export async function getAllCategories() {
+export async function getAllCategories(): Promise<Category[]> {
     try {
         const url = '/categories'
         const { data } = await api.get<Category[]>(url)
@@ -42,4 +42,17 @@ export async function updateCategory({formData, id}: CategoryAPI) {
             throw new Error(error.message)
         }
     }    
+}
+// Para testear
+export async function getCategoryById(id: number): Promise<Category | null> {
+    try {
+        const url = `/categories/${id}`
+        const { data } = await api.get<Category>(url)
+        return data
+    } catch (error) {
+        if (isAxiosError(error) && error.message) {
+            throw new Error(error.message)
+        }
+        return null
+    }
 }

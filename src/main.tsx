@@ -14,6 +14,8 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Ticket from './pages/Ticket'
 import About from './pages/About'
+import Categories from './pages/Categories'
+import CategoryProducts from './pages/CategoryProducts'
 import EccomerceLayout from './layouts/EccomerceLayout'
 import StaffLayout from './layouts/StaffLayout'
 import ControlProducts from './pages/ControlProducts'
@@ -31,6 +33,8 @@ const router = createBrowserRouter(
       children: [
         { path: '/', element: <Home /> },
         { path: '/products', element: <Products /> },
+        { path: '/categories', element: <Categories /> },
+        { path: '/categories/:id', element: <CategoryProducts /> },
         { path: '/login', element: <Login /> },
         { path: '/register', element: <Signup /> },
         { path: '/ticket', element: <Ticket /> },
@@ -48,7 +52,6 @@ const router = createBrowserRouter(
       ],
     },
   ],
-
 )
 
 createRoot(document.getElementById('root')!).render(

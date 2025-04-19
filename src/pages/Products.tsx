@@ -41,7 +41,7 @@ const Products = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 px-4">Featured Products</h1>
+      <h1 className="text-3xl font-bold mb-8 px-4">Productos</h1>
       {Object.entries(productsByCategory).map(([category, categoryProducts]) => (
         <ProductSwiper
           key={category}
