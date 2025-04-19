@@ -70,3 +70,14 @@ export async function deleteProduct({productId}: Pick<ProductAPI,'productId'>){
         }
     }
 }
+
+export async function getProducts(): Promise<Product[]> {
+    try {
+        const url = '/products'
+        const { data } = await api.get<Product[]>(url)
+        return data
+    } catch (error) {
+        console.error('Error fetching products:', error)
+        throw error
+    }
+}

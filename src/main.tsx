@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 
 // Páginas
+import Home from './pages/Home'
 import Products from './pages/Products'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
     {
       element: <EccomerceLayout />,
       children: [
+        { path: '/', element: <Home /> },
         { path: '/products', element: <Products /> },
         { path: '/login', element: <Login /> },
         { path: '/register', element: <Signup /> },
