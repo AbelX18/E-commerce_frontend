@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import ProductSwiper from '../components/ProductSwiper';
-import { Product } from '../types/product';
+import { Product } from '../schema/productSchema';
 import { getAllProducts } from '../api/ProductAPI';
 
 const Products = () => {
