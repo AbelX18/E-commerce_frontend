@@ -12,4 +12,99 @@
             rgba(255,0,0,1) 100%
         );
     }
+    .bg-arkadia-header {
+        background: rgb(30,0,0);
+        background: linear-gradient(
+            90deg,
+            rgba(30,0,0,1) 0%,
+            rgba(120,0,0,1) 25%,
+            rgba(180,0,0,1) 50%,
+            rgba(255,30,30,1) 75%,
+            rgba(0,0,0,1) 100%
+        );
+    }
+    .bg-arkadia-vertical {
+        background: linear-gradient(
+            180deg,
+            #1e0000 0%,
+            #600000 40%,
+            #b40000 70%,
+            #000000 100%
+        );
+    }
+    .bg-arkadia-metaliko {
+        background: linear-gradient(
+            145deg,
+            #2c0000 0%,
+            #5c0a0a 30%,
+            #9b0d0d 60%,
+            #d62626 85%,
+            #ffffff 100%
+        );
+        background-blend-mode: overlay;
+        box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+    }
+    .bg-arkadia-dark {
+        background: linear-gradient(
+            135deg,
+            #0a0a0a 0%,
+            #1c0000 25%,
+            #300000 50%,
+            #1c0000 75%,
+            #0a0a0a 100%
+        );
+        box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.15);
+    }
+
+    .bg-arkadia-test1 {
+        background: radial-gradient(
+            circle,
+            #ff1e1e 0%,
+            #780000 30%,
+            #1e0000 60%,
+            #000000 100%
+        );
+    }
+
+    .bg-arkadia-test2 {
+        background: linear-gradient(
+            135deg,
+            #2b0000 0%,
+            #550000 50%,
+            #000000 100%
+        );
+        background-blend-mode: multiply;
+        box-shadow:
+            inset 0 0 50px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(255, 0, 0, 0.2);
+    }
+
+    .bg-arkadia-test3finalfinal {
+        background: radial-gradient(
+            circle,
+            #ff1e1e 0%,
+            #780000 70%,
+            #000000 100%
+        );
+        background-blend-mode: multiply;
+        box-shadow:
+            inset 0 0 60px rgba(0, 0, 0, 0.6),
+            0 0 40px rgba(255, 0, 0, 0.2),
+            inset 0 0 120px rgba(255, 0, 0, 0.1);
+    }
+
+    .text-arkadia-gradient {
+        background: linear-gradient(
+            135deg,
+            #ff1e1e 0%,
+            #b40000 40%,
+            #600000 80%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 8px rgba(255, 0, 0, 0.6);
+    }
 }
+
