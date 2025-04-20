@@ -12,6 +12,7 @@ const LoginForm: React.FC = () => {
     setError('');
 
     try {
+      console.log(userName,password)
       const response = await authenticateUser({ userName, password });
       return response
     } catch (err) {
@@ -45,7 +46,7 @@ const LoginForm: React.FC = () => {
       </form>
 
       <div style={{ marginTop: '20px' }}>
-        <p>No tienes una cuenta? <a href="/register">Registrate aqui lactm</a></p> //DESPUE HAY QUE CAMBIARLO XD
+        <p>No tienes una cuenta? <a href="/register">Registrate aqui </a></p> 
       </div>
 
 
