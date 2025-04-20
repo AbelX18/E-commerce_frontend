@@ -5,22 +5,21 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <header className="bg-custom-header-gradient shadow-md text-white">
+    <header className="bg-arkadia-test3finalfinal shadow-md text-white">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold hover:text-red-800 transition-all duration-500 ease hover:scale-105 relative group">
-            <span className="relative z-10">Arkadia Demo</span>
-            <span className="absolute -inset-1 bg-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -z-10"></span>
+          <Link to="/" className="text-4xl font-bold tracking-wider arkadia-darkshine">
+            Arkadia Demo
           </Link>
 
           <div className="hidden md:flex space-x-8">
-            <Link to="/products" className="transition-all duration-300 ease-in-out hover:scale-105 hover:bg-red-500 hover:rounded-full px-4 py-2">
+            <Link to="/products" className="btn-arkadia">
               Productos
             </Link>
-            <Link to="/categories" className="transition-all duration-500 ease-in-out hover:scale-105 hover:bg-red-500 hover:rounded-full px-4 py-2">
+            <Link to="/categories" className="btn-arkadia">
               Categorias
             </Link>
-            <Link to="/about" className="transition-all duration-500 ease-in-out hover:scale-105 hover:bg-red-500 hover:rounded-full px-4 py-2">
+            <Link to="/about" className="btn-arkadia">
               Acerca de
             </Link>
           </div>
@@ -47,8 +46,8 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex space-x-4">
-                <Link to="/login" className="text-gray-600 px-4 py-2 hover:text-gray-900">Login</Link>
-                <Link to="/register" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Registrarse</Link>
+                <Link to="/login" className="btn-arkadia">Login</Link>
+                <Link to="/register" className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Registrarse</Link>
               </div>
             )}
           </div>
