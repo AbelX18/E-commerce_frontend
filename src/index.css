@@ -82,9 +82,9 @@
     .bg-arkadia-test3finalfinal {
         background: radial-gradient(
             circle,
-            #ff1e1e 0%,
+            #000000 0%,
             #780000 70%,
-            #000000 100%
+            #ff1e1e 100%
         );
         background-blend-mode: multiply;
         box-shadow:
@@ -179,5 +179,38 @@
         100% {
             left: 125%;
         }
+    }
+}
+
+/*Estilos para los botones*/
+@layer utilities {
+    .btn-arkadia {
+        @apply text-white px-4 py-2 rounded-md border border-red-700 transition-all duration-300 ease-in-out relative overflow-hidden;
+        }
+    
+    .btn-arkadia::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        z-index: 0;
+    }
+    
+    .btn-arkadia:hover::before {
+        opacity: 1;
+    }
+    
+    .btn-arkadia:hover {
+        color: #ff1e1e;
+        border-color: #ff1e1e;
+        text-shadow: 0 0 8px #ff1e1e;
+        transform: scale(1.05);
+    }
+    
+    .btn-arkadia span {
+        position: relative;
+        z-index: 1;
     }
 }

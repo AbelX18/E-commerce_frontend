@@ -13,13 +13,13 @@ const Header = () => {
           </Link>
 
           <div className="hidden md:flex space-x-8">
-            <Link to="/products" className="transition-all duration-300 ease-in-out hover:scale-105 hover:bg-red-500 hover:rounded-full px-4 py-2">
+            <Link to="/products" className="btn-arkadia">
               Productos
             </Link>
-            <Link to="/categories" className="transition-all duration-500 ease-in-out hover:scale-105 hover:bg-red-500 hover:rounded-full px-4 py-2">
+            <Link to="/categories" className="btn-arkadia">
               Categorias
             </Link>
-            <Link to="/about" className="transition-all duration-500 ease-in-out hover:scale-105 hover:bg-red-500 hover:rounded-full px-4 py-2">
+            <Link to="/about" className="btn-arkadia">
               Acerca de
             </Link>
           </div>
@@ -46,7 +46,7 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex space-x-4">
-                <Link to="/login" className="text-white px-4 py-2 hover:text-gray-300">Login</Link>
+                <Link to="/login" className="btn-arkadia">Login</Link>
                 <Link to="/register" className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Registrarse</Link>
               </div>
             )}
