@@ -8,9 +8,8 @@ const Header = () => {
     <header className="bg-arkadia-test3finalfinal shadow-md text-white">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold hover:text-red-800 transition-all duration-500 ease hover:scale-105 relative group">
-            <span className="relative z-10">Arkadia Demo</span>
-            <span className="absolute -inset-1 bg-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -z-10"></span>
+          <Link to="/" className="text-4xl font-bold tracking-wider arkadia-darkshine">
+            Arkadia Demo
           </Link>
 
           <div className="hidden md:flex space-x-8">

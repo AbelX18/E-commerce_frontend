@@ -106,5 +106,78 @@
             2px 2px 4px rgba(0, 0, 0, 0.8),
             0 0 8px rgba(255, 0, 0, 0.6);
     }
+
+    .logo-arkadia-hover-test1 { /*Se parece al brillo de una espada*/
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(135deg, #ff1e1e, #b40000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .logo-arkadia-hover-test1:hover{
+        text-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+        transform: scale(1.05);
+    }
+    
+    .logo-arkadia-hover-test2{ /**/
+        transition: all 0.3s ease-in-out;
+        color: #ff1e1e;
+    }
+
+    .logo-arkadia-hover-test2:hover{
+        text-shadow:
+            0 0 5px #ff0000,
+            0 0 15px #ff1e1e,
+            0 0 30px #ff1e1e;
+        transform: scale(1.1);
+    }
+
+    .arkadia-darkshine {
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .arkadia-darkshine:hover {
+        color: #ff1e1e;
+        text-shadow:
+            0 0 10px #ff1e1e,
+            0 0 20px #b40000,
+            0 0 40px #600000;
+        transform: scale(1.05) rotate(-1deg);
+    }
 }
 
+/*TEST SEPARADO (intenté animar el logo como si fuera metal brillante)*/
+@layer utilities {
+    .arkadia-lingoteperfecto {
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(120deg, #ff1e1e, #b40000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        overflow: hidden;
+        }
+    
+    .arkadia-lingoteperfecto::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+        transform: skewX(-20deg);
+    }
+
+    .arkadia-lingoteperfecto:hover::after {
+        animation: shine 0.8s forwards;
+    }
+
+    @keyframes shine {
+        100% {
+            left: 125%;
+        }
+    }
+}
