@@ -44,12 +44,12 @@ const Header = () => {
                   placeholder="Buscar productos..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 rounded-l-lg text-gray-800 focus:outline-none"
+                  className="w-full search-arkadia"
                 />
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="absolute right-0 top-0 h-full px-4 py-2 bg-gray-200 text-gray-800 rounded-r-lg hover:bg-gray-300"
+                  className="dropdown-arkadia absolute right-0 top-0 h-full flex items-center pr-4"
                 >
                   <span className="flex items-center">
                     {selectedCategory 
@@ -61,7 +61,7 @@ const Header = () => {
                   </span>
                 </button>
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
+                  <div className="dropdown-menu-arkadia absolute right-0 mt-1 w-48 py-1">
                     {categories.map((category) => (
                       <button
                         key={category.id}
@@ -79,7 +79,7 @@ const Header = () => {
               </div>
               <button
                 type="submit"
-                className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="ml-2 btn-arkadia"
               >
                 Buscar
               </button>
