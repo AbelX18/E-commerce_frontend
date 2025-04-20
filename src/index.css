@@ -213,4 +213,29 @@
         position: relative;
         z-index: 1;
     }
+    
+    .btn-register{
+        @apply text-white px-4 py-2 rounded-md border border-red-700 transition-all duration-300 ease-in-out relative overflow-hidden bg-red-600;
+    }
+
+    .btn-register::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+        z-index: 0;
+    }
+
+    .btn-register:hover::before {
+        opacity: 0.9;
+    }
+
+    .btn-register:hover {
+        color: #ffffff;
+        border-color: #ffffff;
+        text-shadow: 0 0 15px #ffffff;
+        transform: scale(1.05);
+    }
 }
