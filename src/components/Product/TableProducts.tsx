@@ -14,7 +14,7 @@ export default function TableProducts() {
 
     const { isPending, data, error, status} = useQuery({
       queryKey:['products'],
-      queryFn: getAllProducts,
+      queryFn: () => getAllProducts(),
     })
 
     if (isPending) {

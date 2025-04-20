@@ -30,7 +30,7 @@ export async function profileUser(){
 
 export const login = async (credentials: LoginCredentials): Promise<User> => {
     try {
-        const response = await fetch(`${process.env.VITE_API_URL}/auth/login`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export const login = async (credentials: LoginCredentials): Promise<User> => {
 
 export const logout = async (): Promise<void> => {
     try {
-        const response = await fetch(`${process.env.VITE_API_URL}/auth/logout`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

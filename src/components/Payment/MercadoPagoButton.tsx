@@ -11,8 +11,6 @@ const MercadoPagoButton = ({ preferenceId, onSuccess, onError }: MercadoPagoButt
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    // Aqui se inicializa mp con la clave pública
-    // Abel si lees esto es fundamental que se pase como VITE_algo
     initMercadoPago(import.meta.env.VITE_PUBLIC_KEY_MP, {
       locale: 'es-AR'
     })

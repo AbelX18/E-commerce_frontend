@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const { login } = useAuth();
@@ -14,7 +14,7 @@ const Login = () => {
         setError('');
 
         try {
-        await login(email, password);
+        await login(userName, password);
         navigate('/');
         } catch (err) {
         setError('Usuario o contraseña incorrecta' + err ); //despues hay que borrar el +err
@@ -32,19 +32,17 @@ const Login = () => {
             <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
                 <div>
-                <label htmlFor="email-address" className="sr-only">
-                    Email address
+                <label htmlFor="userName" className="sr-only">
+                    UserName
                 </label>
                 <input
-                    id="email-address"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="userName"
+                    name="userName"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Nombre de Usuario"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
                 />
                 </div>
                 <div>
