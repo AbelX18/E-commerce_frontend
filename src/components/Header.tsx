@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import { Category } from '../schema/categorySchema';
 import { getAllCategories } from '../api/CategoryAPI';
 import { getAllProducts } from '../api/ProductAPI';
-import { Product } from '../schema/productSchema';
+import { useAuth } from '../context/AuthContext';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, logout } = useAuth()
   const [categories, setCategories] = useState<Category[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -125,7 +125,7 @@ const Header = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </Link>
-            {isLoggedIn ? (
+            {user ? (
               <div className="relative group">
                 <button className="flex items-center space-x-2 btn-arkadia">
                   <span>Cuenta</span>
@@ -136,7 +136,12 @@ const Header = () => {
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
                   <Link to="/profile" className="block btn-arkadia">Perfil</Link>
                   <Link to="/orders" className="block btn-arkadia">Ordenes</Link>
-                  <button className="block btn-register">Logout</button>
+                  <button 
+                    className="block btn-register" 
+                    onClick={logout}
+                  >
+                    Logout
+                  </button>
                 </div>
               </div>
             ) : (
