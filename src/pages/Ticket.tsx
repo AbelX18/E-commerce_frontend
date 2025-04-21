@@ -2,11 +2,13 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import MercadoPagoButton from '../components/Payment/MercadoPagoButton';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
+import { createPreference } from '../api/MPagoAPI';
 
 const Ticket = () => {
   const { items, removeFromCart, updateQuantity, total } = useCart();
+  const { user } = useAuth()
   const navigate = useNavigate();
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,17 +16,17 @@ const Ticket = () => {
   const handlePayment = async () => {
     try {
       setIsLoading(true);
-      // Fijate esto desde el backend
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/create-preference`, {
+      const preferenceId = await createPreference({
         items: items.map(item => ({
+          id: item.id,
           title: item.name,
           unit_price: item.price,
           quantity: item.quantity,
         })),
-        total: total,
+        total,
+        userId: user!.sub, 
       });
-
-      setPreferenceId(response.data.id);
+      setPreferenceId(preferenceId.preferenceId);
     } catch (error) {
       console.error('Error al crear la preferencia:', error);
       toast.error('Error al procesar el pago');
