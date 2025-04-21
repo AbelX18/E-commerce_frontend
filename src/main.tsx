@@ -23,6 +23,7 @@ import Staff from './pages/Staff'
 import ControlCategories from './pages/ControlCategories'
 import ControlStaff from './pages/ControlStaff'
 import DemoSuccess from './pages/DemoSuccess'
+import SearchResults from './pages/SearchResults'
 
 const queryClient = new QueryClient()
 
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
         { path: '/ticket', element: <Ticket /> },
         { path: '/about', element: <About /> },
         { path: '/success', element: <DemoSuccess/> },
+        { path: '/search-results', element: <SearchResults /> },
       ],
     },
     {

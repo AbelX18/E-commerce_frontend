@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Category } from '../schema/categorySchema';
 import { getAllCategories } from '../api/CategoryAPI';
+import { getAllProducts } from '../api/ProductAPI';
+import { Product } from '../schema/productSchema';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,6 +11,7 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -22,10 +25,40 @@ const Header = () => {
     fetchCategories();
   }, []);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    // posterior commit
-    console.log('Buscando:', searchTerm, 'Categoría:', selectedCategory);
+    
+    try {
+      // Obtener todos los productos
+      const allProducts = await getAllProducts();
+      
+      // Filtrar productos según el término de búsqueda y la categoría seleccionada
+      let filteredProducts = allProducts;
+      
+      if (searchTerm) {
+        filteredProducts = filteredProducts.filter(product =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+      
+      if (selectedCategory) {
+        filteredProducts = filteredProducts.filter(product =>
+          product.categoryId === selectedCategory
+        );
+      }
+
+      // Navegar a la página de resultados de búsqueda
+      navigate('/search-results', {
+        state: {
+          products: filteredProducts,
+          searchTerm,
+          category: selectedCategory ? categories.find(c => c.id === selectedCategory)?.name : null
+        }
+      });
+    } catch (error) {
+      console.error('Error searching products:', error);
+    }
   };
 
   return (
