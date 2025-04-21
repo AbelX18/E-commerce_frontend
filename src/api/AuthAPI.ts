@@ -25,7 +25,7 @@ export async function profileUser(): Promise<User>{
         if(isAxiosError(error) && error.response){
             throw new Error(error.message)
         }
-        return null
+        throw new Error('Failed to fetch user profile')
     }
 }
 
