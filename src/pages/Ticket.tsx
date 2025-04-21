@@ -26,7 +26,7 @@ const Ticket = () => {
         total,
         userId: user!.sub, 
       });
-      setPreferenceId(preferenceId.preferenceId);
+      setPreferenceId(preferenceId);
     } catch (error) {
       console.error('Error al crear la preferencia:', error);
       toast.error('Error al procesar el pago');

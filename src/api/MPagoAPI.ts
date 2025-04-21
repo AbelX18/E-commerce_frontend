@@ -13,7 +13,7 @@ export const createPreference = async (ticket: {
     try {
       const url = '/mercado-pago/create-preference'
       const response = await api.post(url, ticket)
-      return response.data
+      return response.data.init_point.preference_id
     } catch (error) {
       console.error('Error al crear la preferencia:', error)
       throw error

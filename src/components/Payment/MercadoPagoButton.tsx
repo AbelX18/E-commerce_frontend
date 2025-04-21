@@ -24,9 +24,7 @@ const MercadoPagoButton = ({ preferenceId }: MercadoPagoButtonProps) => {
   return (
     <div className="w-full">
       <Wallet 
-        initialization={{ preferenceId
-
-         }}
+        initialization={{ preferenceId }}
       />
     </div>
   )
