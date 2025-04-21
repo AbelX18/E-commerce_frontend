@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types/user';
-import { login as loginApi, logout as logoutApi } from '../api/AuthAPI';
+import { login as loginApi, logout as logoutApi, profileUser } from '../api/AuthAPI';
 
 interface AuthContextType {
     user: User | null;
@@ -17,21 +17,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        const storedToken = localStorage.getItem('token');
-
-        if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser));
+        const storedToken = localStorage.getItem('AUTH_TOKEN');
+        if (storedToken) {
+            profileUser().then(user => {
+                setUser(user);
+            }).catch(() => {
+                localStorage.removeItem('AUTH_TOKEN');
+                setUser(null);
+            });
         }
         setLoading(false);
     }, []);
 
     const login = async (userName: string, password: string) => {
         try {
-        const userData = await loginApi({ userName, password });
+        await loginApi({ userName, password });
+        const userData = await profileUser()
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
-        localStorage.setItem('token', userData.token);
         } catch (error) {
         console.error('Login failed:', error);
         throw error;

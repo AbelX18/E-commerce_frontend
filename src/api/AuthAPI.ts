@@ -1,9 +1,9 @@
 import { isAxiosError } from 'axios'
 import api from '../lib/axios'
 import { UserLoginForm } from '../schema'
-import { LoginCredentials, User } from '../types/user' 
+import { User } from '../types/user' 
 
-export async function authenticateUser(formData: UserLoginForm) {
+export async function login(formData: UserLoginForm) {
     try {
         const url = `/auth/login`
         const {data} = await api.post<string>(url, formData)
@@ -16,39 +16,19 @@ export async function authenticateUser(formData: UserLoginForm) {
     }
 }
 
-export async function profileUser(){
+export async function profileUser(): Promise<User>{
     try {
         const url = `/auth/profile`
-        const {data} = await api.get<string>(url)
+        const {data} = await api.get<User>(url)
         return data 
     } catch (error) {
         if(isAxiosError(error) && error.response){
             throw new Error(error.message)
         }
+        return null
     }
 }
 
-export const login = async (credentials: LoginCredentials): Promise<User> => {
-    try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(credentials),
-        })
-
-        if (!response.ok) {
-            throw new Error('Login failed')
-        }
-
-        const data = await response.json()
-        return data
-    } catch (error) {
-        console.error('Error during login:', error)
-        throw error
-    }
-}
 
 export const logout = async (): Promise<void> => {
     try {
@@ -66,7 +46,7 @@ export const logout = async (): Promise<void> => {
         console.error('Error during logout:', error)
         throw error
     } finally {
-        localStorage.removeItem('token')
+        localStorage.removeItem('AUTH_TOKEN')
         localStorage.removeItem('user')
     }
 }
