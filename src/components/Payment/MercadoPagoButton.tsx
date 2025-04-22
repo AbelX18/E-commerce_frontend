@@ -7,7 +7,7 @@ interface MercadoPagoButtonProps {
   onError?: () => void
 }
 
-const MercadoPagoButton = ({ preferenceId, onSuccess, onError }: MercadoPagoButtonProps) => {
+const MercadoPagoButton = ({ preferenceId }: MercadoPagoButtonProps) => {
   const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
@@ -25,9 +25,6 @@ const MercadoPagoButton = ({ preferenceId, onSuccess, onError }: MercadoPagoButt
     <div className="w-full">
       <Wallet 
         initialization={{ preferenceId }}
-        customization={{ texts: { valueProp: 'smart_option' } }}
-        onSuccess={onSuccess}
-        onError={onError}
       />
     </div>
   )

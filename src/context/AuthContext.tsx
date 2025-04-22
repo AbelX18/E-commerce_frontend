@@ -19,15 +19,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const storedToken = localStorage.getItem('AUTH_TOKEN');
         if (storedToken) {
-            profileUser().then(user => {
-                setUser(user);
-            }).catch(() => {
-                localStorage.removeItem('AUTH_TOKEN');
-                setUser(null);
-            });
+            profileUser()
+                .then(user => {
+                    setUser(user);
+                })
+                .catch(() => {
+                    localStorage.removeItem('AUTH_TOKEN');
+                    setUser(null);
+                });
+        } else {
+            setUser(null);
         }
-        setLoading(false);
+        setLoading(false); 
     }, []);
+    
 
     const login = async (userName: string, password: string) => {
         try {
