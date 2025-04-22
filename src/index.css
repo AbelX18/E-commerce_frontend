@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body.dark {
+    background-color: #111014;
+}
+
 @layer utilities {
     .bg-custom-header-gradient {
         background: rgb(2,0,36);
