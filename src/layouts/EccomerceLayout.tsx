@@ -12,7 +12,7 @@ export default function EccomerceLayout() {
       <CartProvider>
         <div className="min-h-screen flex flex-col">
               <Header />
-              <main className="flex-grow dark:bg-[#111014]">
+              <main className="flex-grow bg-gray-200 dark:bg-[#111014]">
                 <Outlet/>
               </main>
               <Footer />
