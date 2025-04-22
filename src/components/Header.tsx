@@ -4,6 +4,7 @@ import { Category } from '../schema/categorySchema';
 import { getAllCategories } from '../api/CategoryAPI';
 import { getAllProducts } from '../api/ProductAPI';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   const { user, logout } = useAuth()
@@ -165,10 +166,12 @@ const Header = () => {
               <div className="flex space-x-4">
                 <Link to="/login" className="btn-arkadia">Login</Link>
                 <Link to="/register" className="btn-register">Registrarse</Link>
+                <ThemeToggle/>
               </div>
             )}
           </div>
         </div>
+        
       </nav>
     </header>
   );
