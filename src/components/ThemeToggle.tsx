@@ -1,24 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Moon, Sun } from 'lucide-react';
+import { ThemeContext } from '../context/ThemeProvider';
 
 const ThemeToggle = () => {
-    const [darkMode, setDarkMode] = useState(() =>
-        localStorage.getItem('theme') === 'dark'
-    );
-
-    useEffect(() => {
-        if (darkMode) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-        } else {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-        }
-    }, [darkMode]);
+    const { darkMode, toggleTheme } = useContext(ThemeContext);
 
     return (
         <button
-        onClick={() => setDarkMode(!darkMode)}
+        onClick={toggleTheme}
         className={`relative w-14 h-8 rounded-full flex items-center px-1 transition-colors duration-300 ${
             darkMode ? 'bg-red-600' : 'bg-gray-300'
         }`}
