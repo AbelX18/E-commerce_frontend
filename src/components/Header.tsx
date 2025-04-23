@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Category } from '../schema/categorySchema';
 import { getAllCategories } from '../api/CategoryAPI';
 import { getAllProducts } from '../api/ProductAPI';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ThemeToggle';
+import { clsx } from 'clsx';
+import { ThemeContext } from '../context/ThemeProvider';
 
 const Header = () => {
   const { user, logout } = useAuth()
@@ -13,6 +15,7 @@ const Header = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const { darkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,7 +113,7 @@ const Header = () => {
               </div>
               <button
                 type="submit"
-                className="ml-2 btn-arkadia dark:btn-darkadia"
+                className={clsx('ml-2', darkMode ? 'btn-darkadia' : 'btn-arkadia')}
               >
                 Buscar
               </button>
@@ -118,7 +121,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Link to="/ticket" className="btn-arkadia">
+            <Link to="/ticket" className={clsx(darkMode ? 'btn-darkadia' : 'btn-arkadia')}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
@@ -164,7 +167,7 @@ const Header = () => {
               </div>
             ) : (
               <div className="flex space-x-4">
-                <Link to="/login" className="btn-arkadia">Login</Link>
+                <Link to="/login" className={clsx(darkMode ? 'btn-darkadia' : 'btn-arkadia')}>Login</Link>
                 <Link to="/register" className="btn-register">Registrarse</Link>
                 
               </div>

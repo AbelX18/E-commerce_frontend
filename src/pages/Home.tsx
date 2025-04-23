@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Product } from '../schema/productSchema'
 import { getAllProducts } from '../api/ProductAPI'
 import ProductCard from '../components/ProductCard'
+import clsx from 'clsx'
+import { ThemeContext } from '../context/ThemeProvider'
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
   const [newProducts, setNewProducts] = useState<Product[]>([])
   const [discountedProducts, setDiscountedProducts] = useState<Product[]>([])
+  const { darkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,7 +50,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold">Productos Destacados</h2>
           <Link 
             to="/products" 
-            className="btn-arkadia px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all"
+            className={clsx("px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all", darkMode ? 'btn-darkadia' : 'btn-arkadia')}
           >
             Ver todos los productos
           </Link>

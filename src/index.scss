@@ -153,53 +153,89 @@
 
 }
 
-/*Estilo para la barra de busqueda y menús dropdown*/
 @layer utilities {
     .search-arkadia {
-        background-color: #000;
-        border: 1px solid #b40000;
-        color: #fff;
+        background-color: #fff;
+        border: 1px solid #007ca6;
+        color: #000;
         border-radius: 0.5rem 0 0 0.5rem;
         padding: 0.5rem 1rem;
         transition: border 0.3s ease-in-out;
     }
-
+    
     .search-arkadia:focus {
-        border-color: #ff1e1e;
+        border-color: #f79b31;
         outline: none;
     }
-
+    
     .dropdown-arkadia {
-        background-color: #0a0a0a;
-        border: 2px solid #b40000;
-        color: #fff;
+        background-color: #f9f9f9;
+        border: 2px solid #007ca6;
+        color: #000;
         border-radius: 0 0.5rem 0.5rem 0;
         padding: 0.5rem 1rem;
         transition: all 0.3s ease-in-out;
     }
-
+    
     .dropdown-arkadia:hover {
-        border-color: #ff1e1e;
-        background-color: #1a1a1a;
+        border-color: #f79b31;
+        background-color: #eaeaea;
     }
-
+    
     .dropdown-menu-arkadia {
-        background-color: #1a1a1a;
-        border: 1px solid #b40000;
+        background-color: #ffffff;
+        border: 1px solid #007ca6;
         border-radius: 0.5rem;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 10px rgba(0, 124, 166, 0.3);
         z-index: 50;
     }
-
+    
     .dropdown-item-arkadia {
         padding: 0.5rem 1rem;
         text-align: left;
-        color: #fff;
+        color: #000;
         transition: background 0.2s ease-in-out;
         width: 100%;
     }
-
+    
     .dropdown-item-arkadia:hover {
+        background-color: #007ca6;
+        color: #fff;
+    }    
+
+    /* Estilos darkMode - sin nesting */
+    .dark .search-arkadia {
+        background-color: #000;
+        border: 1px solid #ff1e1e;
+        color: #fff;
+    }
+
+    .dark .search-arkadia:focus {
+        border-color: #ff4949;
+    }
+
+    .dark .dropdown-arkadia {
+        background-color: #0a0a0a;
+        border: 2px solid #b40000;
+        color: #fff;
+    }
+
+    .dark .dropdown-arkadia:hover {
+        background-color: #1a1a1a;
+        border-color: #ff1e1e;
+    }
+
+    .dark .dropdown-menu-arkadia {
+        background-color: #1a1a1a;
+        border: 1px solid #b40000;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    .dark .dropdown-item-arkadia {
+        color: #fff;
+    }
+
+    .dark .dropdown-item-arkadia:hover {
         background-color: #ff1e1e;
         color: #000;
     }
