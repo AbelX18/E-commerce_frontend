@@ -7,6 +7,7 @@ export default function TableOrderDeliver() {
     const { data, isPending, error, status} = useQuery({
         queryKey:['Order'],
         queryFn: findAllOrder,
+        retry: true
     })
 
     const queryClient = useQueryClient()
