@@ -60,10 +60,10 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-arkadia-header shadow-md text-white">
+    <header className="bg-arkadia-header dark:bg-arkadia-header-dark shadow-md text-white">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-4xl font-bold tracking-wider arkadia-darkshine">
+          <Link to="/" className="text-4xl font-bold tracking-wider arkadia-blueshine dark:arkadia-darkshine">
             Arkadia Demo
           </Link>
 
@@ -110,7 +110,7 @@ const Header = () => {
               </div>
               <button
                 type="submit"
-                className="ml-2 btn-arkadia"
+                className="ml-2 btn-arkadia dark:btn-darkadia"
               >
                 Buscar
               </button>
