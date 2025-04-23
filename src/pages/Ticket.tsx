@@ -39,11 +39,11 @@ const Ticket = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-4">Tu Carrito</h1>
-        <div className="bg-white rounded-lg shadow p-6 text-center">
-          <p className="text-gray-600 mb-4">Tu carrito está vacío</p>
+        <div className="bg-[#525252] rounded-lg shadow p-6 text-center">
+          <p className="dark:text-white text-gray-600 mb-4">Tu carrito está vacío</p>
           <button
             onClick={() => navigate('/products')}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+            className="btn-arkadia px-4 py-2 rounded-md"
           >
             Ver Productos
           </button>

@@ -60,7 +60,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-arkadia-test3finalfinal shadow-md text-white">
+    <header className="bg-white dark:bg-arkadia-header shadow-md text-white">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-4xl font-bold tracking-wider arkadia-darkshine">
