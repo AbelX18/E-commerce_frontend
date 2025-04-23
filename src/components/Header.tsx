@@ -4,6 +4,7 @@ import { Category } from '../schema/categorySchema';
 import { getAllCategories } from '../api/CategoryAPI';
 import { getAllProducts } from '../api/ProductAPI';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   const { user, logout } = useAuth()
@@ -11,6 +12,7 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,10 +31,7 @@ const Header = () => {
     e.preventDefault();
     
     try {
-      // Obtener todos los productos
       const allProducts = await getAllProducts();
-      
-      // Filtrar productos según el término de búsqueda y la categoría seleccionada
       let filteredProducts = allProducts;
       
       if (searchTerm) {
@@ -48,7 +47,6 @@ const Header = () => {
         );
       }
 
-      // Navegar a la página de resultados de búsqueda
       navigate('/search-results', {
         state: {
           products: filteredProducts,
@@ -62,7 +60,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-arkadia-test3finalfinal shadow-md text-white">
+    <header className="bg-white dark:bg-arkadia-test3finalfinal shadow-md text-white">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-4xl font-bold tracking-wider arkadia-darkshine">
@@ -126,32 +124,55 @@ const Header = () => {
               </svg>
             </Link>
             {user ? (
-              <div className="relative group">
-                <button className="flex items-center space-x-2 btn-arkadia">
+              <div className="relative">
+                <button 
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                  className="dropdown-arkadia flex items-center space-x-2"
+                >
                   <span>Cuenta</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
-                  <Link to="/profile" className="block btn-arkadia">Perfil</Link>
-                  <Link to="/orders" className="block btn-arkadia">Ordenes</Link>
-                  <button 
-                    className="block btn-register" 
-                    onClick={logout}
-                  >
-                    Logout
-                  </button>
-                </div>
+                {isProfileDropdownOpen && (
+                  <div className="dropdown-menu-arkadia absolute right-0 mt-1 w-48 py-1">
+                    <Link 
+                      to="/profile" 
+                      className="dropdown-item-arkadia"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      Perfil
+                    </Link>
+                    <Link 
+                      to="/orders" 
+                      className="dropdown-item-arkadia"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      Órdenes
+                    </Link>
+                    <button 
+                      className="dropdown-item-arkadia"
+                      onClick={() => {
+                        logout();
+                        setIsProfileDropdownOpen(false);
+                      }}
+                    >
+                      Cerrar Sesión
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex space-x-4">
                 <Link to="/login" className="btn-arkadia">Login</Link>
                 <Link to="/register" className="btn-register">Registrarse</Link>
+                
               </div>
             )}
+            <ThemeToggle/>
           </div>
         </div>
+        
       </nav>
     </header>
   );

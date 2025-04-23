@@ -6,6 +6,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
+import { ThemeProvider } from './context/ThemeProvider'
 
 // Páginas
 import Home from './pages/Home'
@@ -58,8 +59,10 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>
 )

@@ -5,32 +5,31 @@ import { AuthProvider } from "../context/AuthContext"
 import { CartProvider } from "../context/CartContext"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
- 
- export default function EccomerceLayout() {
-   return (
-      <AuthProvider>
-        <CartProvider>
-          <div className="min-h-screen flex flex-col">
-                <Header />
-                <main className="flex-grow">
-                  <Outlet/>
-                </main>
-                <Footer />
-              <ToastContainer
-                position="bottom-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              />
-          </div>
-        </CartProvider>
-      </AuthProvider>
-   )
- }
- 
+
+export default function EccomerceLayout() {
+  return (
+    <AuthProvider>
+      <CartProvider>
+        <div className="min-h-screen flex flex-col">
+              <Header />
+              <main className="flex-grow bg-gray-200 dark:bg-[#111014]">
+                <Outlet/>
+              </main>
+              <Footer />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+        </div>
+      </CartProvider>
+    </AuthProvider>
+  )
+}
