@@ -36,23 +36,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const login = async (userName: string, password: string) => {
         try {
-        await loginApi({ userName, password });
-        const userData = await profileUser()
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
+            await loginApi({ userName, password });
+            const userData = await profileUser()
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
         } catch (error) {
-        console.error('Login failed:', error);
-        throw error;
+            console.error('Login failed:', error);
+            throw error;
         }
     };
 
     const logout = async () => {
         try {
-        await logoutApi();
-        setUser(null);
+            await logoutApi();
+            setUser(null);
         } catch (error) {
-        console.error('Logout failed:', error);
-        throw error;
+            console.error('Logout failed:', error);
+            throw error;
         }
     };
 

@@ -4,7 +4,8 @@ import { findAllOrder } from "../../api/TicketAPI"
 export default function TableOrderComplete() {
     const {data, isPending, error, status} = useQuery({
         queryKey:['Order'],
-        queryFn: findAllOrder
+        queryFn: findAllOrder,
+        retry: true
     })
 
     if(isPending){

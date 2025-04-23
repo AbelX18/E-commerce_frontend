@@ -15,6 +15,7 @@ export default function TableProducts() {
     const { isPending, data, error, status} = useQuery({
       queryKey:['Staff'],
       queryFn: findAllUsers,
+      retry: true
     })
 
     if (isPending) {

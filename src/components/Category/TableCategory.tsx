@@ -11,7 +11,8 @@ export default function TableCategory() {
     }| null >(null)
     const {isPending, data, error, status} = useQuery({
         queryKey:['Categories'],
-        queryFn: getAllCategories
+        queryFn: getAllCategories,
+        retry: true
     })
 
     if(isPending){

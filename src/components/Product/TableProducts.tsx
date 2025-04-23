@@ -8,13 +8,14 @@ import DeleteProductModal from "./DeleteProductModal";
 
 export default function TableProducts() {
     const [modal, setModal] = useState<{
-      type: "edit" | "details" | 'delete';
-      product: Product;
+      type: "edit" | "details" | 'delete'
+      product: Product
     } | null>(null)
 
     const { isPending, data, error, status} = useQuery({
       queryKey:['products'],
       queryFn: () => getAllProducts(),
+      retry: true
     })
 
     if (isPending) {
