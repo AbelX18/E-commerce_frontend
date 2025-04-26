@@ -10,16 +10,17 @@ import { ThemeContext } from '../context/ThemeProvider';
 
 const Ticket = () => {
   const { items, removeFromCart, updateQuantity, total } = useCart();
-  const { user } = useAuth()
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const [preferenceId, setPreferenceId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const { darkMode } = useContext(ThemeContext);
 
+  const [preferenceId, setPreferenceId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handlePayment = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const preferenceId = await createPreference({
+      const id = await createPreference({
         items: items.map(item => ({
           id: item.id,
           title: item.name,
@@ -27,11 +28,11 @@ const Ticket = () => {
           quantity: item.quantity,
         })),
         total,
-        userId: user!.sub, 
+        userId: user!.sub,
       });
-      setPreferenceId(preferenceId);
+      setPreferenceId(id);
     } catch (error) {
-      console.error('Error al crear la preferencia:', error);
+      console.error('Error al crear preferencia:', error);
       toast.error('Error al procesar el pago');
     } finally {
       setIsLoading(false);
@@ -40,18 +41,16 @@ const Ticket = () => {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className={clsx(
-          "text-3xl font-bold mb-4",
-          darkMode ? "text-arkadia-gradient-dark" : "text-arkadia-gradient"
-        )}>
-          Tu Carrito
-        </h1>
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow p-6 text-center">
-          <p className="dark:text-white text-gray-600 mb-4">Tu carrito está vacío</p>
+      <div className="container mx-auto px-4 py-8 flex flex-col items-center">
+        <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Tu Carrito</h1>
+        <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-md text-center w-full max-w-md">
+          <p className="text-gray-600 dark:text-gray-400 mb-6">Tu carrito está vacío</p>
           <button
             onClick={() => navigate('/products')}
-            className={clsx("px-4 py-2 rounded-md", darkMode ? "btn-register-dark": "btn-register")}
+            className={clsx(
+              'btn-register',
+              darkMode && 'btn-register-dark'
+            )}
           >
             Ver Productos
           </button>
@@ -62,21 +61,22 @@ const Ticket = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Tu Carrito</h1>
+      <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Tu Carrito</h1>
+
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
         <div className="divide-y divide-gray-200 dark:divide-gray-700">
-          {items.map((item) => (
-            <div key={item.id} className="p-4 flex items-center">
+          {items.map(item => (
+            <div key={item.id} className="p-4 flex items-center gap-4">
               <img
                 src={item.image}
                 alt={item.name}
                 className="w-20 h-20 object-cover rounded"
               />
-              <div className="ml-4 flex-grow">
+              <div className="flex-grow">
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">{item.name}</h3>
                 <p className="text-gray-600 dark:text-gray-400">${item.price.toFixed(2)}</p>
               </div>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-4">
                 <div className="flex items-center border border-gray-300 dark:border-gray-600 rounded">
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -102,18 +102,21 @@ const Ticket = () => {
             </div>
           ))}
         </div>
+
         <div className="p-4 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-4">
             <span className="text-lg font-medium text-gray-900 dark:text-white">Total:</span>
             <span className="text-xl font-bold text-gray-900 dark:text-white">${total.toFixed(2)}</span>
           </div>
+
           {!preferenceId ? (
             <button
               onClick={handlePayment}
               disabled={isLoading}
               className={clsx(
-                "mt-4 w-full",
-                darkMode ? "btn-darkadia" : "btn-arkadia"
+                "mt-4 w-full py-2 rounded-md transition-colors",
+                "text-white bg-indigo-600 hover:bg-indigo-700",
+                "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
               {isLoading ? 'Procesando...' : 'Proceder al Pago'}
@@ -136,7 +139,7 @@ const Ticket = () => {
         </div>
       </div>
     </div>
-  );  
+  );
 };
 
-export default Ticket; 
+export default Ticket;
