@@ -21,13 +21,13 @@
 
     .bg-arkadia-header{
         background: linear-gradient(
-            90deg,rgba(247, 155, 49, 1) 0%,
+            90deg,rgba(0, 124, 166, 1)  0%,
             rgba(219, 219, 219, 1) 50%,
             rgba(0, 124, 166, 1) 100%
         );
     }
 
-    .text-arkadia-gradient {
+    .text-arkadia-gradient-dark {
         background: linear-gradient(
             135deg,
             #ff1e1e 0%,
@@ -41,32 +41,46 @@
             0 0 8px rgba(255, 0, 0, 0.6);
     }
 
+    .text-arkadia-gradient {
+        background: linear-gradient(
+            135deg,
+            #3a8dff 0%,
+            #0066cc 40%,
+            #003366 80%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 8px rgba(0, 132, 255, 0.6);
+    }
+
     .arkadia-darkshine {
         color: #fff;
         transition: all 0.3s ease-in-out;
-    }
-    
-    .arkadia-darkshine:hover {
-        color: #ff1e1e;
-        text-shadow:
-            0 0 10px #ff1e1e,
-            0 0 20px #b40000,
-            0 0 40px #600000;
-        transform: scale(1.05) rotate(-1deg);
-    }
 
-    .arkadia-blueshine {
-        color: #007ca6;
-        transition: all 0.3s ease-in-out;
+        &:hover{
+            color: #ff1e1e;
+            text-shadow:
+                0 0 10px #ff1e1e,
+                0 0 20px #b40000,
+                0 0 40px #600000;
+            transform: scale(1.05) rotate(-1deg);
+        }
     }
     
-    .arkadia-blueshine:hover {
-        color: #00f0ff;
-        text-shadow:
-            0 0 10px #00f0ff,
-            0 0 20px #00c4ff,
-            0 0 40px #0094ff;
-        transform: scale(1.05) rotate(1deg);
+    .arkadia-blueshine {
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+
+        &:hover{
+            color: #00f0ff;
+            text-shadow:
+                0 0 10px #00f0ff,
+                0 0 20px #00c4ff,
+                0 0 40px #0094ff;
+            transform: scale(1.05) rotate(1deg);
+        }
     }
 }
 
@@ -74,60 +88,99 @@
 @layer utilities {
     .btn-darkadia {
         @apply text-white px-4 py-2 rounded-md border border-red-700 transition-all duration-300 ease-in-out relative overflow-hidden;
+
+        &:hover{
+            color: #ff1e1e;
+            border-color: #ff1e1e;
+            text-shadow: 0 0 8px #ff1e1e;
+            transform: scale(1.05);
+
+            &::before{
+                opacity: 1;
+            }
         }
-    
-    .btn-darkadia::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
-        opacity: 0;
-        transition: opacity 0.4s ease-in-out;
-        z-index: 0;
+
+        &::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            z-index: 0;
+        }
+
+        span{
+            position: relative;
+            z-index: 1;
+        }
     }
-    
-    .btn-darkadia:hover::before {
-        opacity: 1;
+
+
+    .btn-arkadia {
+        @apply text-white font-semibold py-2 px-4 rounded-md shadow-md transition-all duration-300 ease-in-out;
+        background-color: #f79b31;
+
+        &:hover{
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0,124,166,0.4), 0 0 20px rgba(247,155,49,0.4);
+        }
     }
+
+
     
-    .btn-darkadia:hover {
-        color: #ff1e1e;
-        border-color: #ff1e1e;
-        text-shadow: 0 0 8px #ff1e1e;
-        transform: scale(1.05);
-    }
-    
-    .btn-darkadia span {
-        position: relative;
-        z-index: 1;
+    .btn-register-dark{
+        @apply text-white px-4 py-2 rounded-md border border-red-700 transition-all duration-300 ease-in-out relative overflow-hidden bg-red-600;
+
+        &::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            z-index: 0;
+        }
+
+        &:hover{
+            color: #ffffff;
+            border-color: #ffffff;
+            text-shadow: 0 0 15px #ffffff;
+            transform: scale(1.05);
+
+            &::before{
+                opacity: 0.9;
+            }
+        }
     }
     
     .btn-register{
-        @apply text-white px-4 py-2 rounded-md border border-red-700 transition-all duration-300 ease-in-out relative overflow-hidden bg-red-600;
+        @apply text-white px-4 py-2 rounded-md border border-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden bg-blue-600;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            z-index: 0;
+        }
+
+        &:hover {
+            color: #ffffff;
+            border-color: #ffffff;
+            text-shadow: 0 0 15px #cce6ff;
+            transform: scale(1.05);
+
+            &::before {
+                opacity: 0.9;
+            }
+        }
     }
 
-    .btn-register::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, transparent 70%);
-        opacity: 0;
-        transition: opacity 0.4s ease-in-out;
-        z-index: 0;
-    }
 
-    .btn-register:hover::before {
-        opacity: 0.9;
-    }
-
-    .btn-register:hover {
-        color: #ffffff;
-        border-color: #ffffff;
-        text-shadow: 0 0 15px #ffffff;
-        transform: scale(1.05);
-    }
-
-    .btn-login-dark {
+    .btn-login {
         @apply relative w-full flex justify-center py-2 px-4
             border border-white/20 text-sm font-medium rounded-md text-white
             bg-white/10 hover:bg-white/20 backdrop-blur-md
@@ -135,20 +188,8 @@
             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/30;
     }
 
-    .btn-login{
-        @apply relative w-full flex justify-center py-2 px-4 
-            border border-transparent text-sm font-medium rounded-md text-white
-            bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
-    }
-
-    .btn-arkadia {
-        @apply text-white text-sm font-semibold py-2 px-4 rounded-xl shadow-md transition-all duration-300 ease-in-out;
-        background: linear-gradient(90deg, rgba(247,155,49,1) 0%, rgba(0,124,166,1) 100%);
-    }
-
-    .btn-arkadia:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 10px rgba(0,124,166,0.4), 0 0 20px rgba(247,155,49,0.4);
+    .arkadia-inputs{
+        @apply appearance-none rounded-none relative block w-full px-3 py-2 border border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white/10 focus:outline-none sm:text-sm
     }
 
 }
@@ -158,14 +199,14 @@
         background-color: #fff;
         border: 1px solid #007ca6;
         color: #000;
-        border-radius: 0.5rem 0 0 0.5rem;
+        border-radius: 0.5rem;
         padding: 0.5rem 1rem;
         transition: border 0.3s ease-in-out;
-    }
-    
-    .search-arkadia:focus {
-        border-color: #f79b31;
-        outline: none;
+
+        &:focus{
+            border-color: #f79b31;
+            outline: none;
+        }
     }
     
     .dropdown-arkadia {
@@ -175,11 +216,11 @@
         border-radius: 0 0.5rem 0.5rem 0;
         padding: 0.5rem 1rem;
         transition: all 0.3s ease-in-out;
-    }
-    
-    .dropdown-arkadia:hover {
-        border-color: #f79b31;
-        background-color: #eaeaea;
+
+        &:hover{
+            border-color: #f79b31;
+            background-color: #eaeaea;
+        }
     }
     
     .dropdown-menu-arkadia {
@@ -196,33 +237,34 @@
         color: #000;
         transition: background 0.2s ease-in-out;
         width: 100%;
+
+        &:hover{
+            background-color: #007ca6;
+            color: #fff;
+        }
     }
     
-    .dropdown-item-arkadia:hover {
-        background-color: #007ca6;
-        color: #fff;
-    }    
 
     /* Estilos darkMode - sin nesting */
     .dark .search-arkadia {
         background-color: #000;
         border: 1px solid #ff1e1e;
         color: #fff;
-    }
 
-    .dark .search-arkadia:focus {
-        border-color: #ff4949;
+        &:focus{
+            border-color: #ff4949;
+        }
     }
 
     .dark .dropdown-arkadia {
         background-color: #0a0a0a;
         border: 2px solid #b40000;
         color: #fff;
-    }
 
-    .dark .dropdown-arkadia:hover {
-        background-color: #1a1a1a;
-        border-color: #ff1e1e;
+        &:hover{
+            background-color: #1a1a1a;
+            border-color: #ff1e1e;
+        }
     }
 
     .dark .dropdown-menu-arkadia {
@@ -233,10 +275,10 @@
 
     .dark .dropdown-item-arkadia {
         color: #fff;
-    }
 
-    .dark .dropdown-item-arkadia:hover {
-        background-color: #ff1e1e;
-        color: #000;
+        &:hover{
+            background-color: #ff1e1e;
+            color: #000;
+        }
     }
 }

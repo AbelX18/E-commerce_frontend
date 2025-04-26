@@ -70,7 +70,7 @@ const Header = () => {
             Arkadia Demo
           </Link>
 
-          <div className="flex-1 max-w-2xl mx-8">
+          <div className="flex-1 max-w-2xl">
             <form onSubmit={handleSearch} className="flex">
               <div className="relative flex-1">
                 <input
@@ -168,7 +168,7 @@ const Header = () => {
             ) : (
               <div className="flex space-x-4">
                 <Link to="/login" className={clsx(darkMode ? 'btn-darkadia' : 'btn-arkadia')}>Login</Link>
-                <Link to="/register" className="btn-register">Registrarse</Link>
+                <Link to="/register" className={clsx(darkMode ? 'btn-register-dark' : 'btn-register')}>Registrarse</Link>
                 
               </div>
             )}

@@ -64,7 +64,7 @@ const Signup = () => {
                 {...register('userName')}
                 id="userName"
                 type="text"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="arkadia-inputs"
                 placeholder="Nombre de usuario"
               />
               {errors.userName && (
@@ -79,7 +79,7 @@ const Signup = () => {
                 {...register('name')}
                 id="name"
                 type="text"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="arkadia-inputs"
                 placeholder="Nombre completo"
               />
               {errors.name && (
@@ -94,7 +94,7 @@ const Signup = () => {
                 {...register('email')}
                 id="email"
                 type="email"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="arkadia-inputs"
                 placeholder="Email"
               />
               {errors.email && (
@@ -115,7 +115,7 @@ const Signup = () => {
                 })}
                 id="password"
                 type="password"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="arkadia-inputs"
                 placeholder="Contraseña"
               />
               {errors.password && (
@@ -133,7 +133,7 @@ const Signup = () => {
                 })}
                 id="password_confirmation"
                 type="password"
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="arkadia-inputs"
                 placeholder="Confirmar contraseña"
               />
               {errors.password_confirmation && (
@@ -146,7 +146,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="group btn-login dark:btn-login-dark"
+              className="group btn-login"
             >
               {isLoading ? 'Registrando...' : 'Registrarse'}
             </button>

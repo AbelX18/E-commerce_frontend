@@ -42,7 +42,7 @@ const Login = () => {
                         id="userName"
                         name="userName"
                         required
-                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white/10 focus:outline-none sm:text-sm"
                         placeholder="Nombre de Usuario"
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
@@ -58,7 +58,7 @@ const Login = () => {
                         type="password"
                         autoComplete="current-password"
                         required
-                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white dark:bg-white/10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                        className="appearance-none rounded-none relative block w-full px-3 py-2 border border-white/20 placeholder-gray-500 dark:placeholder-white/50 text-gray-900 dark:text-white bg-white/10 focus:outline-none sm:text-sm"
                         placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +73,7 @@ const Login = () => {
                 <div>
                     <button
                     type="submit"
-                    className="group btn-login dark:btn-login-dark"
+                    className="group btn-login"
                     >
                     Iniciar sesión
                     </button>
