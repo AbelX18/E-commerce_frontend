@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
         setLoading(false); 
     }, []);
-    
 
     const login = async (userName: string, password: string) => {
         try {
