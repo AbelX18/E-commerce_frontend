@@ -37,7 +37,11 @@ const About = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((item, index) => (
-              <div key={index} className="text-center">
+              <div key={index} 
+                className={clsx(
+                  "text-center p-4 rounded-lg transition-all",
+                  darkMode ? "hover:shadow-md hover:shadow-red-900/40" : "hover:shadow-md hover:shadow-blue-900/30"
+                )}>
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${item.bgColor}`}>
                   {item.icon}
                 </div>
