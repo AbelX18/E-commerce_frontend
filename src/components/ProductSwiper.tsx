@@ -3,9 +3,6 @@ import { useCart } from '../context/CartContext';
 import { Product } from '../schema/productSchema';
 import { toast } from 'react-toastify';
 
-//ERMANO ESTA PÁGINA ES DE SUPERPRUEBA PRRO NO SÉ BIEN COMO FUNCIONA ESTA LIB TODAVÍA PERO AKIANDAMIO
-//Usted no se ponga nervioso que yo me encargo de las correcciones
-
 interface ProductSwiperProps {
     title: string;
     products: Product[];
