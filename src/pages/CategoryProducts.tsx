@@ -17,14 +17,11 @@ export default function CategoryProducts() {
       try {
         if (!id) return
 
-        // Obtener la categoría
         const categoryData = await getCategoryById(parseInt(id))
         setCategory(categoryData)
 
-        // Obtener todos los productos
         const productsData = await getAllProducts()
         
-        // Filtrar productos por categoría
         const categoryProducts = productsData.filter(
           product => product.categoryId === parseInt(id)
         )
