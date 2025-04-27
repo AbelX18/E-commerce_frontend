@@ -1,79 +1,164 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { completeOrder, findAllOrder } from "../../api/TicketAPI"
 import { toast } from "react-toastify"
-
+import { ThemeContext } from "../../context/ThemeProvider"
+import { clsx } from "clsx"
+import Spinner from "../Spinner"
+import { useContext } from "react"
 
 export default function TableOrderDeliver() {
-    const { data, isPending, error, status} = useQuery({
-        queryKey:['Order'],
+    const { darkMode } = useContext(ThemeContext)
+    const { data, isPending, error, status } = useQuery({
+        queryKey: ['Order'],
         queryFn: findAllOrder,
         retry: true
     })
 
     const queryClient = useQueryClient()
 
-    const {mutate} = useMutation({
+    const { mutate } = useMutation({
         mutationFn: completeOrder,
-        onError: (error) => {
+        onError: (error: Error) => {
             toast.error(error.message)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['Order']})
-            toast.success("Orden Completada Correctamente!!")
+            toast.success("¡Orden completada correctamente!")
         }
     })
 
-    if(isPending){
-        return <span>Loading...</span>
+    if (isPending) {
+        return (
+            <div className="flex justify-center items-center py-12">
+                <Spinner className={clsx(
+                    "h-12 w-12",
+                    darkMode ? "text-red-500" : "text-blue-500"
+                )} />
+            </div>
+        )
     }
 
     if (status === 'error') {
-        return <span>Error: {error.message}</span>
+        return (
+            <div className={clsx(
+                "rounded-xl p-6 text-center",
+                darkMode ? "bg-gray-800/50 text-red-400" : "bg-white text-red-600"
+            )}>
+                Error: {error.message}
+            </div>
+        )
     }
-    
+
+    const deliverOrders = data.filter(ticket => ticket.status === "Deliver")
 
     return (
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Órdenes para preparar</h2>
-          <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-            <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="px-4 py-2 border-b">ID</th>
-                <th className="px-4 py-2 border-b">Cliente</th>
-                <th className="px-4 py-2 border-b">Producto/s</th>
-                <th className="px-4 py-2 border-b">Cantidad/es</th>
-                <th className="px-4 py-2 border-b">Estado</th>
-                <th className="px-4 py-2 border-b">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((ticket) => (
-                (ticket.status === "Deliver" && (<tr key={ticket.id} className="text-center border-t">
-                    <td className="px-4 py-2">{ticket.id}</td>
-                    <td className="px-4 py-2">{ticket.user.name}</td>
-                    <td className="px-4 py-2">
-                      {ticket.items.map((item, i) => (
-                        <div key={i}>{item.product.name}</div>
-                      ))}
-                    </td>
-                    <td className="px-4 py-2">
-                      {ticket.items.map((item, i) => (
-                        <div key={i}>{item.quantity}</div>
-                      ))}
-                    </td>
-                    <td className="px-4 py-2">En espera de retiro</td>
-                    <td className="px-4 py-2">
-                      <button 
-                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                        onClick={() => mutate(ticket.id)}
-                        >
-                        Completar
-                      </button>
-                    </td>
-                  </tr>))
-              ))}
-            </tbody>
-          </table>
+        <div className={clsx(
+            "p-6 rounded-xl shadow-lg border",
+            darkMode ? "bg-gray-800/80 border-gray-700 shadow-red-900/20" : "bg-gray-50 border-gray-200 shadow-blue-900/10"
+        )}>
+            <h2 className={clsx(
+                "text-2xl font-bold mb-6",
+                darkMode ? "text-arkadia-gradient-dark" : "text-arkadia-gradient"
+            )}>
+                Órdenes para Preparar
+            </h2>
+
+            {deliverOrders.length === 0 ? (
+                <div className={clsx(
+                    "text-center py-8 rounded-lg",
+                    darkMode ? "bg-gray-700/50 text-gray-400" : "bg-white text-gray-500"
+                )}>
+                    No hay órdenes pendientes de preparación
+                </div>
+            ) : (
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border-collapse">
+                        <thead>
+                            <tr className={clsx(
+                                "text-sm uppercase tracking-wider",
+                                darkMode ? "bg-gray-700/80 text-gray-300" : "bg-gray-200 text-gray-600"
+                            )}>
+                                <th className="px-6 py-4 text-left">ID</th>
+                                <th className="px-6 py-4 text-left">Cliente</th>
+                                <th className="px-6 py-4 text-left">Productos</th>
+                                <th className="px-6 py-4 text-center">Cantidad</th>
+                                <th className="px-6 py-4 text-center">Estado</th>
+                                <th className="px-6 py-4 text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {deliverOrders.map((ticket) => (
+                                <tr 
+                                    key={ticket.id} 
+                                    className={clsx(
+                                        "border-t text-sm",
+                                        darkMode ? "border-gray-700 hover:bg-gray-700/60" : "border-gray-200 hover:bg-gray-100",
+                                        "transition-colors duration-150"
+                                    )}
+                                >
+                                    <td className="px-6 py-4">{ticket.id}</td>
+                                    <td className="px-6 py-4 font-medium">
+                                        {ticket.user.name}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="space-y-1">
+                                            {ticket.items.map((item, i) => (
+                                                <div 
+                                                    key={i}
+                                                    className={clsx(
+                                                        "px-2 py-1 rounded",
+                                                        darkMode ? "bg-gray-700" : "bg-gray-100"
+                                                    )}
+                                                >
+                                                    {item.product.name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        <div className="space-y-1">
+                                            {ticket.items.map((item, i) => (
+                                                <div 
+                                                    key={i}
+                                                    className={clsx(
+                                                        "px-2 py-1 rounded mx-auto w-10",
+                                                        darkMode ? "bg-gray-700" : "bg-gray-100"
+                                                    )}
+                                                >
+                                                    {item.quantity}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        <span className={clsx(
+                                            "px-3 py-1 rounded-full text-xs font-semibold",
+                                            "bg-yellow-100 text-yellow-800" // Estado "en espera" en amarillo
+                                        )}>
+                                            En espera de retiro
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        <button
+                                            onClick={() => mutate(ticket.id)}
+                                            className={clsx(
+                                                "px-4 py-2 rounded-lg font-medium transition-all",
+                                                "hover:shadow-lg hover:-translate-y-0.5",
+                                                darkMode 
+                                                    ? "bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 hover:shadow-green-900/40"
+                                                    : "bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 hover:shadow-green-900/30",
+                                                "text-white"
+                                            )}
+                                        >
+                                            Completar
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
-      )
+    )
 }
