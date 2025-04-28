@@ -23,8 +23,10 @@ import ControlProducts from './pages/ControlProducts'
 import Staff from './pages/Staff'
 import ControlCategories from './pages/ControlCategories'
 import ControlStaff from './pages/ControlStaff'
-import DemoSuccess from './pages/DemoSuccess'
+import DemoSuccess from './pages/Demo/DemoSuccess'
 import SearchResults from './pages/SearchResults'
+import DemoPending from './pages/Demo/DemoPending'
+import DemoFailure from './pages/Demo/DemoFailure'
 
 const queryClient = new QueryClient()
 
@@ -42,6 +44,8 @@ const router = createBrowserRouter(
         { path: '/ticket', element: <Ticket /> },
         { path: '/about', element: <About /> },
         { path: '/success', element: <DemoSuccess/> },
+        { path: '/pending', element: <DemoPending/> },
+        { path: '/pending', element: <DemoFailure/> },
         { path: '/search-results', element: <SearchResults /> },
       ],
     },

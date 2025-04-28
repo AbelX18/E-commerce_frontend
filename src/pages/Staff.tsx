@@ -23,8 +23,8 @@ export default function Staff() {
     cantCategory().then(setCantCategories).catch(() => setCantCategories(0));
     cantStaff().then(setCantStaffs).catch(() => setCantStaffs(0) );
     cantProduct().then(setCantProducts).catch(() => setCantProducts(0));
-    cantOrder("Pending").then(setCantOrders).catch(() => setCantOrders(0))
-    cantOrder("Complete").then(setCantOrderComplete).catch(() => setCantOrderComplete(0))
+    cantOrder("Deliver").then(setCantOrders).catch(() => setCantOrders(0))
+    cantOrder("Completed").then(setCantOrderComplete).catch(() => setCantOrderComplete(0))
   }, []);
 
   return (

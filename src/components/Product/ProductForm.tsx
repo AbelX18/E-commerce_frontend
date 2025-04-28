@@ -95,6 +95,30 @@ export default function ProductForm({ product, register,setValue,readOnly }: Pro
         />
       </div>
 
+      <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="quantity">Punto de reposición:</label>
+        <input
+          {...register("stock", { valueAsNumber: true })}
+          id="stock"
+          className="w-full p-3 border-gray-300 border"
+          placeholder="Punto de reposición del Producto"
+          defaultValue={product?.stock}
+          disabled={readOnly}
+        />
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="quantity">Descuento:</label>
+        <input
+          {...register("discount", { valueAsNumber: true })}
+          id="discount"
+          className="w-full p-3 border-gray-300 border"
+          placeholder="Descuento del Producto"
+          defaultValue={product?.discount}
+          disabled={readOnly}
+        />
+      </div>  
+
       <ImageUpload image={product?.image} register={register} setValue={setValue} readOnly={readOnly}/>
     </>
   )
