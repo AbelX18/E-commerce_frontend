@@ -4,93 +4,141 @@ import { deleteProduct } from "../../api/ProductAPI"
 import { toast } from "react-toastify"
 import { Transition, Dialog, TransitionChild, DialogPanel, DialogTitle } from "@headlessui/react"
 import { Fragment } from "react/jsx-runtime"
+import { clsx } from "clsx"
+import { ThemeContext } from "../../context/ThemeProvider"
+import { useContext } from "react"
 
-
-type DeleteProductModalProps ={
+type DeleteProductModalProps = {
   product: ProductFormData
   productId: Product['id']
   onClose: () => void
 }
 
-export default function DeleteProductModal({product, productId, onClose}: DeleteProductModalProps) {
-  let show= productId ? true : false
+export default function DeleteProductModal({ product, productId, onClose }: DeleteProductModalProps) {
+  const { darkMode } = useContext(ThemeContext)
+  const show = productId ? true : false
 
   const queryClient = useQueryClient()
 
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationFn: deleteProduct,
     onError(error) {
       toast.error(error.message)
     },
-    onSuccess(){
-      queryClient.invalidateQueries({queryKey:['products']})
-      toast.success('Producto Elminado Correctamente')
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['products'] })
+      toast.success('Producto Eliminado Correctamente')
       onClose()
     }
   })
 
   return (
-    <>
-
     <Transition appear show={show} as={Fragment}>
-                   <Dialog as="div" className="relative z-10" onClose={onClose}>
-                        <TransitionChild
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-black/60" />
-                        </TransitionChild>
-    
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className="flex min-h-full items-center justify-center p-4 text-center">
-                                <TransitionChild
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all p-16">
-                                        <DialogTitle
-                                            as="h3"
-                                            className="font-black text-4xl  my-5"
-                                        >
-                                            Producto
-                                        </DialogTitle>
-                                        
-                                        <p className="text-xl font-bold">Estas seguro de eliminar el producto:{' '}
-                                            <span className="text-red-600">{product.name}</span>?
-                                        </p>
-                                        <div className="flex justify-center my-6">
-                                          <img
-                                            src={product.image}
-                                            alt="Imagen actual"
-                                            className="w-64 h-64 object-contain border border-gray-300"
-                                          />
-                                        </div>
-                                        <form 
-                                            className='mt-10 space-y-3'
-                                            noValidate
-                                            onSubmit= {() => mutate({ productId })}
-                                        >
-                                            <input type="submit" 
-                                                className=" bg-red-600 hover:bg-red-700 w-full p-3 text-white uppercase font-bold cursor-pointer transition-colors"
-                                                value='Eliminar Producto'
-                                            />
-                                        </form>
-                                    </DialogPanel>
-                                </TransitionChild>
-                            </div>
-                        </div>
-                    </Dialog>
-                </Transition>
-        </>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
+        <TransitionChild
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className={clsx(
+            "fixed inset-0",
+            darkMode ? "bg-black/70 backdrop-blur-sm" : "bg-black/60"
+          )} />
+        </TransitionChild>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <TransitionChild
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <DialogPanel className={clsx(
+                "w-full max-w-2xl transform overflow-hidden rounded-2xl text-center align-middle shadow-xl transition-all p-8 md:p-10",
+                darkMode
+                  ? "bg-gray-800 shadow-red-900/30 border border-gray-700"
+                  : "bg-white shadow-blue-900/20 border border-gray-200"
+              )}>
+                <DialogTitle
+                  as="h3"
+                  className={clsx(
+                    "font-black text-3xl md:text-4xl mb-4",
+                    darkMode
+                      ? "text-arkadia-gradient-dark"
+                      : "text-arkadia-gradient"
+                  )}
+                >
+                  Eliminar Producto
+                </DialogTitle>
+
+                <p className={clsx(
+                  "text-lg md:text-xl font-bold mb-6",
+                  darkMode ? "text-gray-300" : "text-gray-600"
+                )}>
+                  ¿Estás seguro de eliminar el producto:{' '}
+                  <span className={clsx(
+                    "font-extrabold",
+                    darkMode ? "text-red-400" : "text-red-600"
+                  )}>
+                    {product.name}
+                  </span>?
+                </p>
+
+                <div className="flex justify-center my-6">
+                  <img
+                    src={product.image}
+                    alt="Imagen actual"
+                    className={clsx(
+                      "w-48 h-48 md:w-64 md:h-64 object-contain rounded-lg",
+                      darkMode ? "border-gray-600" : "border-gray-300",
+                      "border-2 shadow-inner"
+                    )}
+                  />
+                </div>
+
+                <div className="mt-8 flex gap-4 justify-center">
+                  <button
+                    onClick={onClose}
+                    className={clsx(
+                      "px-6 py-3 rounded-lg font-bold uppercase transition-all duration-300",
+                      "hover:shadow-lg hover:-translate-y-0.5 active:scale-95",
+                      darkMode
+                        ? "bg-gray-700 hover:bg-gray-600 hover:shadow-gray-900/40 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 hover:shadow-gray-900/20 text-gray-800",
+                      "border",
+                      darkMode ? "border-gray-600" : "border-gray-300"
+                    )}
+                  >
+                    Cancelar
+                  </button>
+
+                  <button
+                    onClick={() => mutate({ productId })}
+                    className={clsx(
+                      "px-6 py-3 rounded-lg font-bold uppercase transition-all duration-300",
+                      "hover:shadow-lg hover:-translate-y-0.5 active:scale-95",
+                      darkMode
+                        ? "bg-gradient-to-r from-red-700 to-red-900 hover:shadow-red-900/40 hover:from-red-800 hover:to-red-950"
+                        : "bg-gradient-to-r from-red-600 to-red-800 hover:shadow-red-900/30 hover:from-red-700 hover:to-red-900",
+                      "text-white"
+                    )}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </DialogPanel>
+            </TransitionChild>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
   )
 }

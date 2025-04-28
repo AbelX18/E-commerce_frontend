@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Product } from '../schema/productSchema';
 import { toast } from 'react-toastify';
+import { ThemeContext } from '../context/ThemeProvider';
+import { clsx } from 'clsx';
 
 interface ProductSwiperProps {
     title: string;
@@ -9,6 +11,7 @@ interface ProductSwiperProps {
 }
 
 const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
+    const { darkMode } = useContext(ThemeContext);
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrolling, setIsScrolling] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -17,15 +20,15 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
 
     const handleAddToCart = (product: Product) => {
         addToCart(product);
-        toast.success(`${product.name} added to cart!`, {
+        toast.success(`${product.name} añadido al carrito!`, {
             position: "bottom-right",
+            theme: darkMode ? "dark" : "light",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
         });
     };
 
@@ -54,11 +57,17 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
     };
 
     return (
-        <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 px-4">{title}</h2>
+        <div className="mb-12">
+            <h2 className={clsx(
+                "text-3xl font-bold mb-6 px-4",
+                darkMode ? "text-arkadia-gradient-dark" : "text-arkadia-gradient"
+            )}>
+                {title}
+            </h2>
+            
             <div
                 ref={containerRef}
-                className="flex overflow-x-auto gap-4 px-4 pb-4 scrollbar-hide"
+                className="flex overflow-x-auto gap-6 px-4 pb-6 scrollbar-hide"
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -66,29 +75,74 @@ const ProductSwiper = ({ title, products }: ProductSwiperProps) => {
                 style={{ cursor: isScrolling ? 'grabbing' : 'grab' }}
             >
                 {products.map((product) => (
-                <div key={product.id} className="flex-none w-64">
-                    <div className="bg-white rounded-lg shadow overflow-hidden">
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-48 object-cover"
-                        />
-                        <div className="p-4">
-                            <h3 className="text-lg font-medium">{product.name}</h3>
-                            <p className="text-gray-600">${product.price.toFixed(2)}</p>
-                            <button
-                                onClick={() => handleAddToCart(product)}
-                                className="mt-2 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
-                            >
-                                Agregar al Carrito
-                            </button>
+                    <div key={product.id} className="flex-none w-72">
+                        <div className={clsx(
+                            "group relative rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl",
+                            darkMode 
+                                ? "bg-gray-800 border border-gray-700 hover:border-red-500/30" 
+                                : "bg-white border border-gray-200 hover:border-blue-500/30"
+                        )}>
+                            <div className="relative h-56 overflow-hidden">
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                {product.discount > 0 && (
+                                    <div className={clsx(
+                                        "absolute top-3 right-3 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg",
+                                        darkMode 
+                                            ? "bg-gradient-to-br from-red-600 to-red-900" 
+                                            : "bg-gradient-to-br from-blue-600 to-blue-900"
+                                    )}>
+                                        -{product.discount}%
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <div className="p-5">
+                                <h3 className={clsx(
+                                    "text-lg font-semibold mb-2 line-clamp-2",
+                                    darkMode ? "text-gray-100" : "text-gray-800"
+                                )}>
+                                    {product.name}
+                                </h3>
+                                
+                                <div className="flex items-center justify-between mb-4">
+                                    <p className={clsx(
+                                        "text-xl font-bold",
+                                        darkMode ? "text-red-400" : "text-blue-600"
+                                    )}>
+                                        ${product.price.toFixed(2)}
+                                    </p>
+                                    <span className={clsx(
+                                        "text-sm px-2 py-1 rounded",
+                                        darkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-600"
+                                    )}>
+                                        {product.category.name}
+                                    </span>
+                                </div>
+                                
+                                <button
+                                    onClick={() => handleAddToCart(product)}
+                                    className={clsx(
+                                        "w-full py-2 rounded-md font-medium transition-all duration-300",
+                                        "hover:shadow-lg hover:translate-y-[-2px]",
+                                        darkMode 
+                                            ? "bg-gradient-to-r from-red-600 to-red-800 hover:shadow-red-500/30" 
+                                            : "bg-gradient-to-r from-blue-600 to-blue-800 hover:shadow-blue-500/30",
+                                        "text-white"
+                                    )}
+                                >
+                                    Agregar al Carrito
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 ))}
             </div>
         </div>
     );
 };
 
-export default ProductSwiper; 
+export default ProductSwiper;

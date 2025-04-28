@@ -5,17 +5,31 @@ import { AuthProvider } from "../context/AuthContext"
 import { CartProvider } from "../context/CartContext"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import { ThemeProvider } from "../context/ThemeProvider"
+import { clsx } from "clsx"
 
 export default function EccomerceLayout() {
   return (
     <AuthProvider>
       <CartProvider>
-        <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-grow bg-gray-200 dark:bg-[#111014] dark:text-[#f5f5f5]">
+        <ThemeProvider>
+          <div className={clsx(
+            "min-h-screen flex flex-col transition-colors duration-300",
+            "bg-gray-100 text-gray-800 dark:bg-[#111014] dark:text-[#f5f5f5]"
+          )}>
+            <Header />
+            
+            <main className={clsx(
+              "flex-grow transition-colors duration-300", 
+              "bg-gray-50 dark:bg-[#0f0f12]" 
+            )}>
+              <div className={clsx("transition-all duration-300")}>
                 <Outlet/>
-              </main>
-              <Footer />
+              </div>
+            </main>
+            
+            <Footer />
+            
             <ToastContainer
               position="bottom-right"
               autoClose={3000}
@@ -26,9 +40,20 @@ export default function EccomerceLayout() {
               pauseOnFocusLoss
               draggable
               pauseOnHover
-              theme="light"
+              theme="colored"
+              toastClassName={clsx(
+                "!rounded-xl !border !font-sans !shadow-lg",
+                "dark:!bg-gray-800 dark:!border-gray-700 dark:!text-white",
+                "!bg-white !border-gray-200 !text-gray-800"
+              )}
+              progressClassName={clsx(
+                "!bg-gradient-to-r",
+                "dark:from-red-600 dark:to-red-800",
+                "from-blue-600 to-blue-800"
+              )}
             />
-        </div>
+          </div>
+        </ThemeProvider>
       </CartProvider>
     </AuthProvider>
   )

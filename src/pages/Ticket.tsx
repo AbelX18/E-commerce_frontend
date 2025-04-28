@@ -47,10 +47,7 @@ const Ticket = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-6">Tu carrito está vacío</p>
           <button
             onClick={() => navigate('/products')}
-            className={clsx(
-              'btn-register',
-              darkMode && 'btn-register-dark'
-            )}
+            className={clsx(darkMode ? 'btn-register-dark' : 'btn-register')}
           >
             Ver Productos
           </button>
