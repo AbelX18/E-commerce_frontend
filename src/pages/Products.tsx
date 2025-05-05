@@ -83,7 +83,7 @@ const Products = () => {
                 {category}
               </h2>
               <Link 
-                to={`/categories/${categoryProducts[0].category.id}`}
+                to={`/categories/${categoryProducts[0].categoryId}`}
                 className={clsx(
                   "text-sm px-3 py-1 rounded-full transition-all",
                   "hover:shadow-md hover:-translate-y-0.5",
