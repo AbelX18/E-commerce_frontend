@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authenticateUser } from '../../api/AuthAPI';
+import { login } from '../../api/AuthAPI';
 
 
 const LoginForm: React.FC = () => {
@@ -13,7 +13,7 @@ const LoginForm: React.FC = () => {
 
     try {
       console.log(userName,password)
-      const response = await authenticateUser({ userName, password });
+      const response = await login({ userName, password });
       return response
     } catch (err) {
       setError('Email o contraseña inválidos. Intenta de nuevo. :' + err); //despue hay que borrar el +err
