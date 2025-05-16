@@ -31,22 +31,7 @@ export async function profileUser(): Promise<User>{
 
 
 export const logout = async (): Promise<void> => {
-    try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-
-        if (!response.ok) {
-            throw new Error('Logout failed')
-        }
-    } catch (error) {
-        console.error('Error during logout:', error)
-        throw error
-    } finally {
-        localStorage.removeItem('AUTH_TOKEN')
-        localStorage.removeItem('user')
-    }
+    localStorage.removeItem('AUTH_TOKEN')
+    localStorage.removeItem('user')
+    
 }

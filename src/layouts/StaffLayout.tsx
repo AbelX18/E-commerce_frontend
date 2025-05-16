@@ -1,13 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { ToastContainer } from "react-toastify";
 import { ThemeContext } from "../context/ThemeProvider";
 import { clsx } from "clsx";
 import { useContext } from "react";
+import { useAuth } from "../context/AuthContext";
+import { getRoleFromToken } from "../utils/jwt";
 
 export default function StaffLayout() {
   const { darkMode } = useContext(ThemeContext);
-  
+  const { user, loading } = useAuth();
+  const role = getRoleFromToken()
+
+  if (loading) return <p>Cargando...</p>;
+  console.log(user)
+  // Si no hay usuario o es un Buyer, redirigimos a 404
+  if (!user || role === 'BUYER') {
+    return <Navigate to="/404" replace />;
+  }
   return (
     <>
       <div className={clsx(

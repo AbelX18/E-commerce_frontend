@@ -17,20 +17,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem('AUTH_TOKEN');
-        if (storedToken) {
-            profileUser()
-                .then(user => {
+        const fetchUser = async () => {
+            const storedToken = localStorage.getItem('AUTH_TOKEN');
+            if (storedToken) {
+                try {
+                    const user = await profileUser();
                     setUser(user);
-                })
-                .catch(() => {
+                } catch (error) {
+                    console.error("Error al cargar el perfil:", error);
                     localStorage.removeItem('AUTH_TOKEN');
                     setUser(null);
-                });
-        } else {
-            setUser(null);
-        }
-        setLoading(false); 
+                }
+            } else {
+                setUser(null);
+            }
+            setLoading(false); 
+        };
+
+        fetchUser();
     }, []);
 
     const login = async (userName: string, password: string) => {

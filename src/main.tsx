@@ -27,6 +27,7 @@ import DemoSuccess from './pages/Demo/DemoSuccess'
 import SearchResults from './pages/SearchResults'
 import DemoPending from './pages/Demo/DemoPending'
 import DemoFailure from './pages/Demo/DemoFailure'
+import { AuthProvider } from './context/AuthContext'
 
 const queryClient = new QueryClient()
 
@@ -65,7 +66,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>

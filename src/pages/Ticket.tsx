@@ -29,6 +29,7 @@ const Ticket = () => {
         })),
         total,
         userId: user!.sub,
+        email: user!.email
       });
       setPreferenceId(id);
     } catch (error) {

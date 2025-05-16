@@ -7,8 +7,9 @@ export const createPreference = async (ticket: {
       unit_price: number;
       quantity: number;
     }[];
-    total: number;
-    userId: number;
+    total: number
+    userId: number,
+    email: string
   }) => {
     try {
       const url = '/mercado-pago/create-preference'
