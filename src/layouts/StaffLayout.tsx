@@ -13,8 +13,7 @@ export default function StaffLayout() {
   const role = getRoleFromToken()
 
   if (loading) return <p>Cargando...</p>;
-  console.log(user)
-  // Si no hay usuario o es un Buyer, redirigimos a 404
+
   if (!user || role === 'BUYER') {
     return <Navigate to="/404" replace />;
   }

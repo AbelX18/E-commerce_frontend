@@ -46,7 +46,7 @@ const router = createBrowserRouter(
         { path: '/about', element: <About /> },
         { path: '/success', element: <DemoSuccess/> },
         { path: '/pending', element: <DemoPending/> },
-        { path: '/pending', element: <DemoFailure/> },
+        { path: '/failure', element: <DemoFailure/> },
         { path: '/search-results', element: <SearchResults /> },
       ],
     },
