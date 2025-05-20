@@ -20,7 +20,7 @@ export default function StaffLayout() {
   return (
     <>
       <div className={clsx(
-        "flex min-h-screen transition-colors duration-300",
+        "flex min-h-screen transition-colors duration-300 pl-64",
         darkMode ? "bg-[#111014]" : "bg-gray-100"
       )}>
         <Sidebar />
