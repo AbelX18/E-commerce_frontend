@@ -23,9 +23,7 @@ export default function StaffLayout() {
       <div className={clsx(
         "flex min-h-screen transition-colors duration-300 ",
         darkMode ? "bg-[#111014]" : "bg-gray-100"
-      )}>
-        
-        
+      )}>    
         <main className={clsx(
           "flex-grow p-6 transition-colors duration-300",
           "overflow-y-auto max-h-screen",
