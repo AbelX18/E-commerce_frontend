@@ -19,11 +19,12 @@ export default function StaffLayout() {
   }
   return (
     <>
+      <Sidebar />
       <div className={clsx(
-        "flex min-h-screen transition-colors duration-300 pl-64",
+        "flex min-h-screen transition-colors duration-300 ",
         darkMode ? "bg-[#111014]" : "bg-gray-100"
       )}>
-        <Sidebar />
+        
         
         <main className={clsx(
           "flex-grow p-6 transition-colors duration-300",
