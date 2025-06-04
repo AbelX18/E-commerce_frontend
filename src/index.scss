@@ -93,6 +93,7 @@
             color: #ff1e1e;
             border-color: #ff1e1e;
             text-shadow: 0 0 8px #ff1e1e;
+            box-shadow: 0 0 10px #ff1e1e;
             transform: scale(1.05);
 
             &::before{
@@ -118,7 +119,7 @@
 
 
     .btn-arkadia {
-        @apply text-white font-semibold py-2 px-4 rounded-md shadow-md transition-all duration-300 ease-in-out;
+        @apply text-white font-semibold py-2 px-4 rounded-md shadow-md border border-[#f79b31] transition-all duration-300 ease-in-out;
         background-color: #f79b31;
 
         &:hover{
@@ -136,17 +137,15 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
             z-index: 0;
         }
 
         &:hover{
-            color: #ffffff;
-            border-color: #ffffff;
-            text-shadow: 0 0 15px #ffffff;
+            border-color: #ff1e1e;
             transform: scale(1.05);
+            box-shadow: 0 0 10px #ff1e1e;
 
             &::before{
                 opacity: 0.9;
@@ -161,17 +160,14 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
             z-index: 0;
         }
 
         &:hover {
-            color: #ffffff;
-            border-color: #ffffff;
-            text-shadow: 0 0 15px #cce6ff;
             transform: scale(1.05);
+            box-shadow: 0 0 10px #cce6ff;
 
             &::before {
                 opacity: 0.9;
@@ -182,7 +178,7 @@
 
     .btn-login {
         @apply relative w-full flex justify-center py-2 px-4
-            border border-white/20 text-sm font-medium rounded-md text-white
+            text-sm font-medium rounded-md text-white
             bg-white/10 hover:bg-white/20 backdrop-blur-md
             transition-all duration-300 ease-in-out shadow-md
             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/30;
@@ -207,11 +203,15 @@
             border-color: #f79b31;
             outline: none;
         }
+
+        &:hover{
+            box-shadow: 0 0 20px #f79b31;
+        }
     }
     
     .dropdown-arkadia {
         background-color: #f9f9f9;
-        border: 2px solid #007ca6;
+        border: 1px solid #007ca6;
         color: #000;
         border-radius: 0 0.5rem 0.5rem 0;
         padding: 0.5rem 1rem;
@@ -220,6 +220,7 @@
         &:hover{
             border-color: #f79b31;
             background-color: #eaeaea;
+            box-shadow: 0 0 20px #f79b31;
         }
     }
     
@@ -235,8 +236,9 @@
         padding: 0.5rem 1rem;
         text-align: left;
         color: #000;
-        transition: background 0.2s ease-in-out;
         width: 100%;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease-in-out;
 
         &:hover{
             background-color: #007ca6;
@@ -249,20 +251,27 @@
         background-color: #000;
         border: 1px solid #ff1e1e;
         color: #fff;
+        transition: all 0.3s ease-in-out;
 
         &:focus{
             border-color: #ff4949;
+        }
+
+        &:hover{
+            box-shadow: 0 0 20px #ff1e1e;
         }
     }
 
     .dark .dropdown-arkadia {
         background-color: #0a0a0a;
-        border: 2px solid #b40000;
+        border: 1px solid #b40000;
         color: #fff;
 
         &:hover{
             background-color: #1a1a1a;
             border-color: #ff1e1e;
+            box-shadow: 0 0 15px #ff1e1e;
+            
         }
     }
 
@@ -270,13 +279,16 @@
         background-color: #1a1a1a;
         border: 1px solid #b40000;
         box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        
     }
 
     .dark .dropdown-item-arkadia {
         color: #fff;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease-in-out;
 
         &:hover{
-            background-color: #ff1e1e;
+            background-color: #ff9c9cbb;
             color: #000;
         }
     }

@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   return (
     <aside className={clsx(
-      "w-64 min-h-screen fixed border-r p-6 transition-colors duration-300",
+      "w-64 min-h-screen sticky border-r p-6 transition-colors duration-300",
       "shadow-lg z-10",
       darkMode 
         ? "bg-gray-800 border-gray-700" 
